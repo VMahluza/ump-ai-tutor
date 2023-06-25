@@ -1,0 +1,20 @@
+<!-- ======= Our Services Section ======= -->
+<section id="services-list" class="services-list">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+        <h2>App Features</h2>
+        </div>
+        <div class="row gy-5">
+            {% for item in feature_items %}    
+            <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="{{item.icon_div.delay | safe }}">
+                <div class="icon flex-shrink-0"><i class="{{item.icon_div.icon_class | safe }}" style="color: {{item.icon_div.color | safe }};"></i></div>
+                <div>
+                <h4 class="title"><a href="#" class="stretched-link"> {{item.title | safe }}</a></h4>
+                <p class="description">{{item.description | safe }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section><!-- End Our Services Section -->

@@ -1,0 +1,16 @@
+{% extends 'global/base.html' %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+{% include 'global/header.html' %}
+{% include 'pages/hero.html' %}
+<main id="main">
+    {% include 'pages/why.html' %}
+    {% include 'pages/features.html' %}
+    {% include 'pages/cta.html' %}
+    {% include 'pages/questions.html' %}
+    {% include 'pages/team.html' %}
+    {% include 'pages/contact.html' %}
+    
+    
+</main>
+{% endblock content %}

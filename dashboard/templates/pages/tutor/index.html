@@ -1,0 +1,11 @@
+{% extends 'global/dashboard-base.html' %}
+{% block title %}{{title}}{% endblock title %}
+{% block content %}
+{% include 'essentials/sidebar.html' %}
+{% include 'global/dashboard-header.html' %}
+<main id="main">
+      {% include 'essentials/pagetitle.html' %}
+      {% include 'pages/tutor/table.html' %}
+</main>
+{% include "essentials/dashboard-footer.html" %}
+{% endblock content %}
