@@ -205,12 +205,16 @@
               <hr class="dropdown-divider">
             </li>
 
+            {% if user.is_staff %}
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="">
+              <a class="dropdown-item d-flex align-items-center btn btn-primary" href="/admin">
                 <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
+                <span>Go to Admin</span>
               </a>
             </li>
+            
+
+            {% endif %}
             <li>
               <hr class="dropdown-divider">
             </li>
