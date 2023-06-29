@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import password_validation
 from dashboard.models import User, AuthKeys, Registration
 from django.shortcuts import render, redirect
-
+from .models import UserRequest
 class LoginForm(AuthenticationForm):
     # username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your username'}))
     # password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter your password'}))
@@ -68,6 +68,7 @@ class StudentSignUpForm(UserCreationForm):
         fields = [
             'email',
             'username',
+            'profile_pic',
             'first_name',
             'last_name',
             'gender',
@@ -182,6 +183,25 @@ class RegistrationForm(forms.ModelForm):
     class Meta:
         model = Registration
         fields = ['course', 'documents', 'level_of_study']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            new_data = {
+                
+                "class": 'form-control',
+                # "hx-post": ".",
+                # "hx-trigger": "keyup changed delay:500ms",
+                # "hx-target": "#recipe-container",
+                # "hx-swap": "outerHTML"
+            }
+            self.fields[str(field)].widget.attrs.update(
+                new_data
+            )
+        
+class UserRequestForm(forms.ModelForm):
+    class Meta:
+        model = UserRequest
+        fields = '__all__'
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:

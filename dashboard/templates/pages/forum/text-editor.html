@@ -1,0 +1,59 @@
+<div id="editor-{{ forloop.counter | safe }}">
+    {% comment %} console.log('{{query}}') {% endcomment %}
+</div>
+<br><br>
+<button class="btn btn-primary" onclick="postData({{ forloop.counter | safe }}, {{query.id}})">POST ANSWER</button>
+<br><br>
+<hr>
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('editor-{{ forloop.counter | safe }}');
+    function postData(counter, id) {
+        let editorData = CKEDITOR.instances['editor-' + counter].getData();
+        // Construct the request body
+            // Construct the form data
+        let formData = new FormData();
+        formData.append('answer_text', editorData);
+        formData.append('query_id', id);
+
+        console.log(id)
+
+        // Get the CSRF token from the cookie
+        let csrftoken = getCookie('csrftoken');
+
+        console.log(csrftoken);
+
+        fetch('add-answer-to-query', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken
+                },
+                body: formData
+            })
+            .then(responseData => {
+                // Handle the response data
+                window.location.reload();
+                console.log(responseData);
+            })
+            .catch(error => {
+                // Handle the error
+                console.error(error);
+            });
+    }
+
+    // Function to retrieve the value of a cookie by name
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>

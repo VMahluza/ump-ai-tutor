@@ -11,7 +11,11 @@
           </blockquote>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
         
-            <a href="#about" style="background:linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );" class="btn-get-started">Get Started</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" style="background:linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );" class="btn-get-started">Go to Dashboard</a>
+            {% else %}
+            <a href="{% url 'login' %}" style="background:linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );" class="btn-get-started">Get Started</a>
+            {% endif %}
             <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ"  class="glightbox btn-watch-video d-flex align-items-center"><i style="color: #40c9ff ;" class="bi bi-play-circle"></i><span>Watch Video</span></a>
           </div>
 

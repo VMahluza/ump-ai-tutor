@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "dashboard",
     "web",
+    
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,6 @@ AUTH_GROUP_CHOICES = (
     ('lecture', 'Lecturer'),
     ('tutor', 'Tutor'),
 )
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

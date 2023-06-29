@@ -1,13 +1,60 @@
+    {% load static %}
     <!-- ======= Call To Action Section ======= -->
     <section id="call-to-action" class="call-to-action">
         <div class="container" data-aos="fade-up">
           <div class="row justify-content-center">
             <div class="col-lg-6 text-center">
-              <h3>Project for 3rd years</h3>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-              <a class="cta-btn" href="#">Call To Action</a>
+              <h3>Want to register as a Lecturer or a tutor?</h3>
+              <p>Our trained Assistants will help you get one, after your account has been reviewed and varified. You will be given an access key that you can use to register as a dedicated individual</p>
+              <button style="background:linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );border:none" class="cta-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Request to be a Lecturer
+              </button>
             </div>
           </div>
   
         </div>
       </section><!-- End Call To Action Section -->
+
+
+      <!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div style="display:flex; flex-direction:column">
+          
+          <div class="d-flex justify-content-center py-4">
+            <a  class="d-flex align-items-center w-auto" >
+              <img src="{% static 'ai-tutor-logo-2.png' %}" width="350" alt="">
+            </a>
+          </div><!-- End Logo -->
+          <h5 class="modal-title" id="exampleModalLabel">Requesting to be a lecturer</h5>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post" enctype="multipart/form-data">
+        <div class="modal-body">
+          {% csrf_token %}
+          {% if form.errors %}
+          
+          <div class="alert alert-danger">
+              {% for field, errors in form.errors.items %}
+                  {{ field }}:
+                  {% for error in errors %}
+                      {{ error }}
+                  {% endfor %}
+              {% endfor %}
+              </div>
+          {% endif %}
+          {{form.as_p}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="log-out btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="sign-up btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

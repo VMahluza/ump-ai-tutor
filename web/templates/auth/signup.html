@@ -1,6 +1,154 @@
 {% extends 'global/dashboard-base.html' %}
+{% load static %}
 {% block title %}{{title}}{% endblock title %}
 {% block content %}
+<style>
+  /* #login-btn {
+      width: 90%;
+
+      background: var(--color-primary);
+      color:#fff;
+      font-family: var(--font-secondary);
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 50px 10px;
+      margin-left: 20px;
+      margin-top: 5px;
+      
+  } */
+
+  #login-btn {
+position: relative;
+width: 120px;
+height: 40px;
+background-color: var(--color-secondary);
+display: flex;
+align-items: center;
+color: white;
+flex-direction: column;
+justify-content: center;
+border: none;
+padding: 12px;
+gap: 12px;
+border-radius: 8px;
+cursor: pointer;
+}
+
+#login-btn::before {
+content: '';
+position: absolute;
+inset: 0;
+left: -4px;
+top: -1px;
+margin: auto;
+width: 128px;
+height: 48px;
+border-radius: 10px;
+background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
+z-index: -10;
+pointer-events: none;
+transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+  #login-btn::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100% );
+  transform: translate3d(0, 0, 0) scale(0.95);
+  filter: blur(20px);
+  }
+
+  #login-btn:hover::after {
+  filter: blur(30px);
+  }
+
+  #login-btn:hover::before {
+  transform: rotate(-180deg);
+  }
+
+  #login-btn:active::before {
+  scale: 0.7;
+  }
+
+  #register-btn {
+position: relative;
+width: 120px;
+height: 40px;
+background-color: transparent;
+display: flex;
+align-items: center;
+color: white;
+flex-direction: column;
+justify-content: center;
+border: none;
+padding: 12px;
+gap: 12px;
+border-radius: 8px;
+cursor: pointer;
+}
+
+#register-btn::before {
+content: '';
+position: absolute;
+inset: 0;
+left: -4px;
+top: -1px;
+margin: auto;
+width: 128px;
+height: 48px;
+border-radius: 10px;
+background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
+z-index: -10;
+pointer-events: none;
+transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+  #register-btn::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100% );
+  transform: translate3d(0, 0, 0) scale(0.95);
+  filter: blur(20px);
+  }
+
+  #register-btn:hover::after {
+  filter: blur(30px);
+  }
+
+  #register-btn:hover::before {
+  transform: rotate(-180deg);
+  }
+
+  #register-btn:active::before {
+  scale: 0.7;
+  }
+
+  /* #register-btn {
+      width: 90%;
+      background: transparent;
+      color:#fff;
+      font-family: var(--font-secondary);
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 50px 10px;
+      margin-left: 20px;
+      border: 2px solid var(--color-primary);
+      margin-top: 5px;
+  } */
+
+
+
+</style>
 <main id="main">
     
 <div class="container">
@@ -10,9 +158,8 @@
         <div class="col-lg-10 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
           <div class="d-flex justify-content-center py-4">
-            <a href="index.html" class="logo d-flex align-items-center w-auto">
-              <img src="assets/img/logo.png" alt="">
-              <span class="d-none d-lg-block">NiceAdmin</span>
+            <a href="{% url 'home' %}" class="d-flex align-items-center w-auto" >
+              <img src="{% static 'ai-tutor-logo-2.png' %}" width="400px" alt="">    
             </a>
           </div><!-- End Logo -->
 
@@ -21,6 +168,7 @@
             <div class="card-body">
 
               <div class="pt-4 pb-2">
+                
                 <h5 class="card-title text-center pb-0 fs-4">Create a {{title}} account</h5>
                 <p class="text-center small">You are being signed up as a {{title}} with</p>
                 {% if accesskey %}
@@ -29,9 +177,10 @@
                 {% endif %}
               </div>
 
-              <form class="row g-3 needs-validation" method='post' novalidate>
+              <form class="row g-3 needs-validation" method='post' enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
                 {% if form.errors %}
+                
                 <div class="alert alert-danger">
                     {% for field, errors in form.errors.items %}
                         {{ field }}:
@@ -39,10 +188,27 @@
                             {{ error }}
                         {% endfor %}
                     {% endfor %}
-                </div>
-            {% endif %}
+                    </div>
+                {% endif %}
                 {% for el in form %}
-                {{el}}
+                {% if forloop.counter == 6%}
+                <div class="col-md-3">
+                  <label class="form-label" >{{el.label}}</label>
+                  {{el}}
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                  {% else %}
+                  <div class="col-md-4">
+                    <label class="form-label" >{{el.label}}</label>
+                    {{el}}
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+                {% endif %}
+
                 {% endfor %}
                 <script>
                     document.getElementById('id_auth_key').setAttribute('value', '{{accesskey}}');
@@ -54,11 +220,21 @@
                   </div>
                 </div>
 
+                <style>
+                  .sign-up{
+                    background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
+                    color:white;
+                    border:none;
+                    padding: 10px;
+                    border-radius:5px;
+                    
+                  }
+                </style>
                 <div class="col-12">
-                  <button class="btn btn-primary w-100" type="submit">Sign Up</button>
+                  <button style="" class="sign-up  w-100" type="submit">Sign Up</button>
                 </div>
                 <div class="col-12">
-                  <p class="small mb-0">Already have an Account <a href="pages-register.html">Create an account</a></p>
+                  <p class="small mb-0">Already have an Account <a href="{% url 'usertype' %}">Create an account</a></p>
                 </div>
               </form>
 

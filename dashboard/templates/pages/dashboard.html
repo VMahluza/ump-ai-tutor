@@ -23,14 +23,14 @@
               </div>
 
               <div class="card-body">
-                <h5 class="card-title">Sales <span>| Today</span></h5>
+                <h5 class="card-title">Students</h5>
 
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-cart"></i>
+                    <i class="bi bi-people"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>145</h6>
+                    <h6>{{students_count}}</h6>
                     <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
 
                   </div>
@@ -58,14 +58,14 @@
               </div>
 
               <div class="card-body">
-                <h5 class="card-title">Revenue <span>| This Month</span></h5>
+                <h5 class="card-title">Tutors</h5>
 
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-currency-dollar"></i>
+                    <i class="bi bi-people"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>$3,264</h6>
+                    <h6>{{tutors_count}}</h6>
                     <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
 
                   </div>
@@ -94,14 +94,14 @@
               </div>
 
               <div class="card-body">
-                <h5 class="card-title">Customers <span>| This Year</span></h5>
+                <h5 class="card-title">Lecturers</span></h5>
 
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-people"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>1244</h6>
+                    <h6>{{lecture_count}}</h6>
                     <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
 
                   </div>
@@ -137,16 +137,25 @@
 
                 <script>
                   document.addEventListener("DOMContentLoaded", () => {
+                    let today = new Date();
+                    let dd = String(today.getDate()).padStart(2, '0');
+                    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    let yyyy = today.getFullYear();
+                    
+                    today = yyyy + '-' + mm + '-' + dd;
+
+                    console.log(today);
+
                     new ApexCharts(document.querySelector("#reportsChart"), {
                       series: [{
-                        name: 'Sales',
-                        data: [31, 40, 28, 51, 42, 82, 56],
+                        name: 'Students',
+                        data: [31, 40, 28, 51, 42, 82, 56, 67, 89],
                       }, {
-                        name: 'Revenue',
-                        data: [11, 32, 45, 32, 34, 52, 41]
+                        name: 'Tutors',
+                        data: [11, 32, 45, 32, 34, 52,9, 3, 23]
                       }, {
-                        name: 'Customers',
-                        data: [15, 11, 32, 18, 9, 24, 11]
+                        name: 'Lecturers',
+                        data: [15, 11, 32, 18, 9, 24, 31, 2, 50]
                       }],
                       chart: {
                         height: 350,
@@ -177,7 +186,17 @@
                       },
                       xaxis: {
                         type: 'datetime',
-                        categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                        categories: [
+                        `${today}T00:00:00.000Z`, 
+                        `${today}T03:00:00.000Z`, 
+                        `${today}T06:00:00.000Z`, 
+                        `${today}T09:00:00.000Z`, 
+                        `${today}T12:00:00.000Z`,
+                        `${today}T15:00:00.000Z`, 
+                        `${today}T18:00:00.000Z`,
+                        `${today}T21:00:00.000Z` ,
+                        `${today}T23:00:00.000Z` 
+                        ]
                       },
                       tooltip: {
                         x: {
@@ -215,57 +234,21 @@
           </div>
 
           <div class="card-body">
-            <h5 class="card-title">Recent Activity <span>| Today</span></h5>
+            <h5 class="card-title">Most Rated Queries</h5>
 
             <div class="activity">
 
+              {% for q in top_queries %}
+              
               <div class="activity-item d-flex">
-                <div class="activite-label">32 min</div>
+                <div class="activite-label">{{q.pub_date}}</div>
                 <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
                 <div class="activity-content">
-                  Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
+                  
+                  {{q.short_question}}
                 </div>
               </div><!-- End activity item-->
-
-              <div class="activity-item d-flex">
-                <div class="activite-label">56 min</div>
-                <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                <div class="activity-content">
-                  Voluptatem blanditiis blanditiis eveniet
-                </div>
-              </div><!-- End activity item-->
-
-              <div class="activity-item d-flex">
-                <div class="activite-label">2 hrs</div>
-                <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                <div class="activity-content">
-                  Voluptates corrupti molestias voluptatem
-                </div>
-              </div><!-- End activity item-->
-
-              <div class="activity-item d-flex">
-                <div class="activite-label">1 day</div>
-                <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                <div class="activity-content">
-                  Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
-                </div>
-              </div><!-- End activity item-->
-
-              <div class="activity-item d-flex">
-                <div class="activite-label">2 days</div>
-                <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                <div class="activity-content">
-                  Est sit eum reiciendis exercitationem
-                </div>
-              </div><!-- End activity item-->
-
-              <div class="activity-item d-flex">
-                <div class="activite-label">4 weeks</div>
-                <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                <div class="activity-content">
-                  Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-                </div>
-              </div><!-- End activity item-->
+              {% endfor %}
 
             </div>
 
@@ -367,43 +350,6 @@
             </ul>
           </div>
 
-          <div class="card-body pb-0">
-            <h5 class="card-title">News &amp; Updates <span>| Today</span></h5>
-
-            <div class="news">
-              <div class="post-item clearfix">
-                <img src="assets/img/news-1.jpg" alt="">
-                <h4><a href="#">Nihil blanditiis at in nihil autem</a></h4>
-                <p>Sit recusandae non aspernatur laboriosam. Quia enim eligendi sed ut harum...</p>
-              </div>
-
-              <div class="post-item clearfix">
-                <img src="assets/img/news-2.jpg" alt="">
-                <h4><a href="#">Quidem autem et impedit</a></h4>
-                <p>Illo nemo neque maiores vitae officiis cum eum turos elan dries werona nande...</p>
-              </div>
-
-              <div class="post-item clearfix">
-                <img src="assets/img/news-3.jpg" alt="">
-                <h4><a href="#">Id quia et et ut maxime similique occaecati ut</a></h4>
-                <p>Fugiat voluptas vero eaque accusantium eos. Consequuntur sed ipsam et totam...</p>
-              </div>
-
-              <div class="post-item clearfix">
-                <img src="assets/img/news-4.jpg" alt="">
-                <h4><a href="#">Laborum corporis quo dara net para</a></h4>
-                <p>Qui enim quia optio. Eligendi aut asperiores enim repellendusvel rerum cuder...</p>
-              </div>
-
-              <div class="post-item clearfix">
-                <img src="assets/img/news-5.jpg" alt="">
-                <h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>
-                <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>
-              </div>
-
-            </div><!-- End sidebar recent posts-->
-
-          </div>
         </div><!-- End News & Updates -->
 
       </div><!-- End Right side columns -->

@@ -25,7 +25,7 @@
                 <p class="text-center small">You can't proceed if you are not register to any course</p>
               </div>
 
-              <form class="row g-3 needs-validation" method='post' novalidate>
+              <form class="row g-3 needs-validation" enctype="multipart/form-data" method='post' novalidate>
                 {% csrf_token %}
                 {% if form.errors %}
                 <div class="alert alert-danger">
@@ -40,7 +40,7 @@
               {{ form.as_p }}
 
                 <div class="col-12">
-                  <button class="btn btn-primary w-100" type="submit">Complete</button>
+                  <button class="sign-up w-100" type="submit">Complete Registration</button>
                 </div>
               </form>
             </div>
