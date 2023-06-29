@@ -1,12 +1,15 @@
-asgiref @ file:///C:/ci_311/asgiref_1676448296195/work
+asgiref
 certifi==2023.5.7
 charset-normalizer==3.1.0
-Django @ file:///C:/ci_311/django_1676469589007/work
+Django 
 docopt==0.6.2
 idna==3.4
+Pillow==9.5.0
 pipreqs==0.4.13
 requests==2.31.0
-sqlparse @ file:///C:/ci_311/sqlparse_1676456541280/work
-tzdata @ file:///tmp/build/80754af9/python-tzdata_1611693927741/work
+sqlparse 
+gunicorn
+tzdata 
 urllib3==2.0.3
 yarg==0.1.9
+whitenoise==6.3.0
