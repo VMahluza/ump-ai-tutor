@@ -168,12 +168,20 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+
             {% if user.profile_pic %}
-            <img src="{{user.profile_pic.url}}" alt="Profile" class="rounded-circle">
+            <img src="{{user.profile_pic.url}}" alt="Profile"  class="rounded-circle">
+            <div style="position:absolute">
+              {% if user.is_active %}
+              <i style="position:relative;top:15px;left:30px"  class="bi bi-record-fill text-success"></i>
+                {% else %}
+                <i style="position:relative;top:15px;left:30px" class="bi bi-record-fill text-danger"></i>
+              {% endif %}
+            </div>
             {% else %}
-            <img src="" alt="Profile-Avatar" class="rounded-circle">
+            <img src="{% static 'web/assets/img/team/chatbot.webp' %}" alt="Profile-Avatar" class="rounded-circle">
             {% endif %}
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{user.first_name}} {{user.last_name}}</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{user.get_full_name}}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">

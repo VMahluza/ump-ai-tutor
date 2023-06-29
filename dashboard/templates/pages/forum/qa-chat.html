@@ -1,3 +1,4 @@
+{% load static %}
 <style>
     .ps {
         --mdb-scrollbar-rail-x-y-transition-opacity-bg: background-color 0.2s linear, opacity 0.2s linear;
@@ -35,8 +36,7 @@
 
 
                         <div class="filter">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Post Question</button>
+
                             <a class="icon" href="#" data-bs-toggle="dropdown">Filter<i
                                     class="bi bi-filter-left"></i></a>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
@@ -54,15 +54,27 @@
 
                         <div class="card-body">
                             <h5 class="card-title">Recent Questions <span> /Today</span></h5>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Post
+                                Question</button><br>
+                            <hr>
                             {% for query in questries %}
                             <div class="accordion accordion-flush" id="faq-group-{{ forloop.counter }}">
 
                                 <!-- Start Question -->
                                 <div class="accordion-item">
                                     <div class="accordion-header">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-                                            alt="avatar 1" style="width: 45px; height: 100%;">
-                                        <span>{{query.user.get_full_name}}</span>
+                                        {% if query.user.profile_pic %}
+
+                                        <img src="{{query.user.profile_pic.url}}" alt="avatar 1" class="rounded-circle"
+                                            style="width: 45px; height: 100%;">
+                                        {% else %}
+                                        <img src="{% static 'web/assets/img/team/chatbot.webp' %}" alt="avatar 1"
+                                            class="rounded-circle" style="width: 45px; height: 100%;">
+                                        {% endif %}
+
+                                        <span>&nbsp {{query.user.get_full_name}}</span>
+                                        &nbsp
                                         <a href="/dashboard/forum/query/up?q={{query.id}}" class="icon">
                                             <i class="bi bi-arrow-up-circle-fill text-primary"></i>
                                         </a>
@@ -72,12 +84,12 @@
                                         <span class="text">{{query.votes}}</span>
                                         {% else %}
                                         <span class="text-success">+{{query.votes}}</span>
-                                        {% endif %} &nbsp Votes
+                                        {% endif %}
                                         <a href="/dashboard/forum/query/down?q={{query.id}}" class="icon">
                                             <i class="bi bi-arrow-down-circle-fill text-danger"></i>
-                                        </a>
+                                        </a>&nbsp
                                         <span class="text-secodary">{{query.module.name}}</span>
-                                        <hr>
+                                        &nbsp
 
                                         <h2>
                                             <button class="accordion-button"
@@ -88,6 +100,8 @@
                                                 {{query.short_question}} ... ?
                                             </button>
                                         </h2>
+
+                                        <hr>
                                     </div>
                                     <div id="faqsOne-{{ forloop.counter }}" class="accordion-collapse collapse"
                                         data-bs-parent="#faq-group-{{ forloop.counter }}" style="">
@@ -115,7 +129,7 @@
                                                 <br>
                                                 <div class="card-body">
                                                     <p>
-                                                    
+
                                                         {{answer.answer_text | safe}}
                                                     </p>
                                                 </div>
@@ -145,24 +159,37 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center p-3"
                     style="border-top: 4px solid #aaa;">
-                    <h5 class="mb-0">Try Asking Me anything 😊</h5>
-                    <div class="d-flex flex-row align-items-center">
-                        <span class="badge bg-primary me-3">20</span>
-                        <i class="fas fa-minus me-3 text-muted fa-xs"></i>
-                        <i class="fas fa-comments me-3 text-muted fa-xs"></i>
-                        <i class="fas fa-times text-muted fa-xs"></i>
-                    </div>
+                    <h5 class="mb-0">Try Asking Me anything <span><img
+                                src="{% static 'web/assets/img/team/chatbot-2.png' %}" alt="avatar 1"
+                                class="rounded-circle" style="width: 45px; height: 100%;"></spn>
+                    </h5>
                 </div>
                 <div class="card-body perfect-scrollbar ps ps--active-y" data-mdb-perfect-scrollbar="true"
                     style="position: relative; height: 400px">
+                    <br>
+                    <br>
+
+                    <script>
+                        var currentdate = new Date();
+                        var datetime =  currentdate.getDate() + "/" +
+                            (currentdate.getMonth() + 1) + "/" +
+                            currentdate.getFullYear() + " @ " +
+                            currentdate.getHours() + ":" +
+                            currentdate.getMinutes() + ":"
+                           ;
+
+                        console.log(datetime)
+                        document.querySelector("#datetime").innerText = datetime
+                        
+                    </script>
+                    <h6 >{{current_time}}</h6>
 
                     <div class="d-flex justify-content-between">
-                        <p class="small mb-1">Timona Siera</p>
-                        <p class="small mb-1 text-muted">23 Jan 2:00 pm</p>
+
                     </div>
                     <div class="d-flex flex-row justify-content-start">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp"
-                            alt="avatar 1" style="width: 45px; height: 100%;">
+                        <img src="{% static 'web/assets/img/team/chatbot-2.png' %}" alt="avatar 1"
+                            class="rounded-circle" style="width: 45px; height: 100%;">
                         <div>
                             <p class="small p-2 ms-3 mb-3 rounded-3" style="background-color: #f5f6f7;">For what reason
                                 would it
@@ -171,8 +198,7 @@
                     </div>
 
                     <div class="d-flex justify-content-between">
-                        <p class="small mb-1 text-muted">23 Jan 2:05 pm</p>
-                        <p class="small mb-1">Johny Bullock</p>
+
                     </div>
                     <div class="d-flex flex-row justify-content-end mb-4 pt-1">
                         <div>
@@ -180,17 +206,29 @@
                                 our
                                 supports</p>
                         </div>
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-                            alt="avatar 1" style="width: 45px; height: 100%;">
+                        {% if user.profile_pic %}
+
+                        <img src="{{user.profile_pic.url}}" alt="avatar 1" class="rounded-circle"
+                            style="width: 45px; height: 100%;">
+                        {% else %}
+                        <img src="{% static 'web/assets/img/team/chatbot-2.png' %}" alt="avatar 1"
+                            class="rounded-circle" style="width: 45px; height: 100%;">
+                        {% endif %}
                     </div>
 
                     <div class="d-flex justify-content-between">
-                        <p class="small mb-1">Timona Siera</p>
-                        <p class="small mb-1 text-muted">23 Jan 5:37 pm</p>
+
+
                     </div>
                     <div class="d-flex flex-row justify-content-start">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp"
-                            alt="avatar 1" style="width: 45px; height: 100%;">
+                        {% if query.user.profile_pic %}
+
+                        <img src="{{query.user.profile_pic.url}}" alt="avatar 1" class="rounded-circle"
+                            style="width: 45px; height: 100%;">
+                        {% else %}
+                        <img src="{% static 'web/assets/img/team/chatbot-2.png' %}" alt="avatar 1"
+                            class="rounded-circle" style="width: 45px; height: 100%;">
+                        {% endif %}
                         <div>
                             <p class="small p-2 ms-3 mb-3 rounded-3" style="background-color: #f5f6f7;">Lorem ipsum
                                 dolor sit amet
@@ -199,17 +237,23 @@
                     </div>
 
                     <div class="d-flex justify-content-between">
-                        <p class="small mb-1 text-muted">23 Jan 6:10 pm</p>
-                        <p class="small mb-1">Johny Bullock</p>
+                        {% comment %} <p class="small mb-1 text-muted">23 Jan 6:10 pm</p>
+                        <p class="small mb-1">{{user.get_full_name}}</p> {% endcomment %}
                     </div>
                     <div class="d-flex flex-row justify-content-end mb-4 pt-1">
                         <div>
-                            <p class="small p-2 me-3 mb-3 text-white rounded-3 bg-primary">Dolorum quasi voluptates quas
+                            <p class="small p-2 me-3 mb-3 text-white rounded-3 bg-primary ">Dolorum quasi voluptates quas
                                 amet in
                                 repellendus perspiciatis fugiat</p>
                         </div>
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-                            alt="avatar 1" style="width: 45px; height: 100%;">
+                        {% if user.profile_pic %}
+
+                        <img src="{{user.profile_pic.url}}" alt="avatar 1" class="rounded-circle"
+                            style="width: 45px; height: 100%;">
+                        {% else %}
+                        <img src="{% static 'web/assets/img/team/chatbot-2.png' %}" alt="avatar 1"
+                            class="rounded-circle" style="width: 45px; height: 100%;">
+                        {% endif %}
                     </div>
 
                     <div class="ps__rail-x" style="left: 0px; bottom: -117px;">

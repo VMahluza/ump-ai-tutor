@@ -21,7 +21,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from .models import Student, Lecture, Tutor
-
+import datetime
 
 
 
@@ -38,6 +38,8 @@ class HomeDashboardPageView(LoginRequiredMixin, TemplateView):
         context['tutors_count'] = Tutor.tutor.count()
         context['lecture_count'] = Lecture.lecture.count()
         context['top_queries'] = Query.objects.order_by('-votes')[:6]
+        context['current_time'] = str(datetime.datetime.now())
+
 
         # Add more data to the context if needed
         return context
@@ -51,7 +53,7 @@ class ActiveUsersboardPageView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         register = Registration.objects.get(user=self.request.user)
-        context['title'] = 'Dashboard'
+        context['title'] = 'Participants'
         context['registration'] = register
         context['active_users'] = Registration.objects.filter(course=register.course)
         # Add more data to the context if needed

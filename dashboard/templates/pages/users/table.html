@@ -74,7 +74,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Datatables</h5>
+                    <h5 class="card-title">Participants</h5>
   
                     <!-- Table with stripped rows -->
                     <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
@@ -82,8 +82,6 @@
                             <table class="table datatable datatable-table">
                                 <thead>
                                     <tr>
-                                        <th data-sortable="true" style="width: 5.614035087719298%;"><a href="#"
-                                                class="datatable-sorter">#</a></th>
                                         <th data-sortable="true" style="width: 28.07017543859649%;"><a href="#"
                                                 class="datatable-sorter">Name</a></th>
                                         <th data-sortable="true" style="width: 37.719298245614034%;"><a href="#"
@@ -98,7 +96,7 @@
                                   {% for regs in active_users %}
 
                                   <tr data-index="{{forloop.counter}}">
-                                      <td>{{regs.user.id}}</td>
+                                      {% comment %} <td>{{regs.user.id}}</td> {% endcomment %}
                                       <td>{{regs.user.first_name}}</td>
                                       <td>{{regs.user.last_name}}</td>
                                       <td>{{regs.user.gender}}</td>
