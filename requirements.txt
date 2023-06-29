@@ -1,5 +1,6 @@
 asgiref
 certifi
+psycopg2
 charset-normalizer
 Django 
 docopt
