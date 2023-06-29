@@ -1,9 +1,9 @@
   <!-- ======= Header ======= -->
+  {% load static %}
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">NiceAdmin</span>
+      <a href="{% url 'dashboard' %}" class="d-flex align-items-center">
+        <img src="{% static 'ai-tutor-logo-2.png' %}" width="150px" alt="">
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -168,21 +168,27 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="https://avatars.githubusercontent.com/u/94212834?s=400&u=18d112b835a13c7bae0e03c0be19acd15e1e1070&v=4" alt="Profile" class="rounded-circle">
+            {% if user.profile_pic %}
+            <img src="{{user.profile_pic.url}}" alt="Profile" class="rounded-circle">
+            {% else %}
+            <img src="" alt="Profile-Avatar" class="rounded-circle">
+            {% endif %}
             <span class="d-none d-md-block dropdown-toggle ps-2">{{user.first_name}} {{user.last_name}}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>{{user.first_name}} {{user.last_name}}</h6> 
+              {% if registration %}
               <span>{{registration.course.name}} Year {{registration.level_of_study}}</span>
+              {% endif %}
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'profile' %}">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -192,7 +198,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="">
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
               </a>
@@ -202,7 +208,9 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+              <a 
+              class="dropdown-item d-flex align-items-center" 
+              href="https://wa.me/27723074089?text=Hi Admin My name is {{user.get_full_name}} I wish to make an enquiry">
                 <i class="bi bi-question-circle"></i>
                 <span>Need Help?</span>
               </a>
@@ -212,7 +220,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="/logout">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>

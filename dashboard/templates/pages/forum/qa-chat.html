@@ -54,110 +54,81 @@
 
                         <div class="card-body">
                             <h5 class="card-title">Recent Questions <span> /Today</span></h5>
-
-                            <div class="accordion accordion-flush" id="faq-group-1">
+                            {% for query in questries %}
+                            <div class="accordion accordion-flush" id="faq-group-{{ forloop.counter }}">
 
                                 <!-- Start Question -->
                                 <div class="accordion-item">
                                     <div class="accordion-header">
                                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
                                             alt="avatar 1" style="width: 45px; height: 100%;">
-                                        <span>Victor Mahluza</span>
-                                        <a href="" class="icon">
+                                        <span>{{query.user.get_full_name}}</span>
+                                        <a href="/dashboard/forum/query/up?q={{query.id}}" class="icon">
                                             <i class="bi bi-arrow-up-circle-fill text-primary"></i>
-
                                         </a>
-                                        <span class="text-success">+10</span> Votes
-                                        <a href="" class="icon">
+                                        {% if query.votes < 0 %}
+                                        <span class="text-danger">{{query.votes}}</span>
+                                        {% elif query.votes == 0 %}
+                                        <span class="text">{{query.votes}}</span>
+                                        {% else %}
+                                        <span class="text-success">+{{query.votes}}</span>
+                                        {% endif %} &nbsp Votes
+                                        <a href="/dashboard/forum/query/down?q={{query.id}}" class="icon">
                                             <i class="bi bi-arrow-down-circle-fill text-danger"></i>
                                         </a>
-                                        <span class="text-secodary">Project 3A</span>
+                                        <span class="text-secodary">{{query.module.name}}</span>
                                         <hr>
 
                                         <h2>
-                                            <button class="accordion-button" data-bs-target="#faqsOne-1" type="button"
-                                            data-bs-toggle="collapse" aria-expanded="true">
-                                            <i class="bi bi-patch-question"></i> 
-                                    &nbsp;&nbsp;
-
-                                               How do i write a basic pseudo code ... ?
+                                            <button class="accordion-button"
+                                                data-bs-target="#faqsOne-{{ forloop.counter }}" type="button"
+                                                data-bs-toggle="collapse" aria-expanded="true">
+                                                <i class="bi bi-patch-question"></i>
+                                                &nbsp;&nbsp;
+                                                {{query.short_question}} ... ?
                                             </button>
                                         </h2>
                                     </div>
-                                    <div id="faqsOne-1" class="accordion-collapse collapse"
-                                        data-bs-parent="#faq-group-1" style="">
+                                    <div id="faqsOne-{{ forloop.counter }}" class="accordion-collapse collapse"
+                                        data-bs-parent="#faq-group-{{ forloop.counter }}" style="">
                                         <div class="accordion-body">
-                                            How do i write a basic pseudo code
-                                            Ut quasi odit odio totam accusamus vero eius. Nostrum asperiores voluptatem
-                                            eos nulla ab dolores est asperiores iure. Quo est quis praesentium aut
-                                            maiores. Corrupti sed aut expedita fugit vero dolorem. Nemo rerum sapiente.
-                                            A quaerat dignissimos.?
+                                            {{query.question_text}}
                                             <hr>
                                             <h5>Answers</h5>
-
+                                            {% for answer in query.answers.all %}
                                             <div class="card">
                                                 <div class="card-header">
                                                     <div>
                                                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp"
                                                             alt="avatar 1" style="width: 45px; height: 100%;">
-                                                        <span>Josette Mbuyamba</span>
+                                                        <span>{{answer.user.get_full_name}}</span>
                                                         <a href="" class="icon">
                                                             <i class="bi bi-arrow-up-circle-fill text-primary"></i>
 
                                                         </a>
-                                                        <span class="text-success">+10</span> Votes
+                                                        <span class="text-success">{{answer.votes}}</span> Votes
                                                         <a href="" class="icon">
                                                             <i class="bi bi-arrow-down-circle-fill text-danger"></i>
                                                         </a>
-                                                        <span class="text-secodary">Project 3A</span>
-
                                                     </div>
                                                 </div>
                                                 <br>
                                                 <div class="card-body">
                                                     <p>
-                                                        Psuedo Code is a fake code used to plan
-
+                                                    
+                                                        {{answer.answer_text | safe}}
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    <div>
-                                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp"
-                                                            alt="avatar 1" style="width: 45px; height: 100%;">
-                                                        <span>Josette Mbuyamba</span>
-                                                        <a href="" class="icon">
-                                                            <i class="bi bi-arrow-up-circle-fill text-primary"></i>
-
-                                                        </a>
-                                                        <span class="text-success">+10</span> Votes
-                                                        <a href="" class="icon">
-                                                            <i class="bi bi-arrow-down-circle-fill text-danger"></i>
-                                                        </a>
-                                                        <span class="text-secodary">Project 3A</span>
-
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <div class="card-body">
-                                                    <p>
-                                                        Psuedo Code is a fake code used to plan
-
-                                                    </p>
-                                                </div>
-                                            </div>
+                                            {% endfor %}
                                         </div>
-                                        <div style="display: flex;flex-direction: column;">
-                                        
-                                            <textarea name="" id="" class="form-control" cols="30" rows="10"></textarea>
-                                            <br>
-                                            <button class="btn btn-primary">Post Answer</button>
-                                        </div>
+
+                                        {% include "pages/forum/text-editor.html" %}
                                     </div>
                                 </div>
-                                <!--  -->
                             </div>
+                            {% endfor %}
+
 
                         </div>
 
@@ -259,12 +230,10 @@
                         <button class="btn btn-primary" type="button" id="button-addon2" style="padding-top: 0.55rem;">
                             Send
                             <i class="bx bxs-send"></i>
-
                         </button>
                     </div>
                 </div>
             </div>
-
         </div><!-- End Recent Activity -->
 
     </div><!-- End Right side columns -->

@@ -7,37 +7,40 @@ from django.contrib.auth.views import LoginView
 from .forms import LoginForm, RegistrationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from .forms import StudentSignUpForm, TutorSignUpForm, LectureSignUpForm
+from .forms import StudentSignUpForm, TutorSignUpForm, LectureSignUpForm, UserRequestForm
 from dashboard.models import AuthKeys, Registration
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from dashboard.models import Query
 
 
-class HomePageView(TemplateView):
+class HomePageView(CreateView):
     template_name = 'index.html'
+    form_class = UserRequestForm
+    success_url = '/'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['message'] = 'Welcome to the home page!'
-        
+        context['message'] = 'Welcome to the home page!'   
         feature_items = [
             FeatureItemData(
-                title="Lorem Ipsum", 
-                description="Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident",
+                title="Intelligent Chatbot", 
+                description="The AI Tutoring System incorporates an intelligent chatbot that provides personalized support to students. It uses natural language processing and machine learning algorithms to understand and respond to student queries effectively.",
                 icon_div=IconDiv(
                     icon_class="bi bi-briefcase",
                     color="#f57813",
                     delay=100)
                 ),
             FeatureItemData(
-                title="Dolor Sitema", 
-                description="Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident",
+                title="Question Asking Forum", 
+                description="The app features a question asking forum where students can post their questions and receive answers from peers and educators. This fosters collaboration, knowledge sharing, and a sense of community among learners.",
                 icon_div=IconDiv(
                     icon_class="bi bi-briefcase",
                     color="#15a04a",
                     delay=200)
                 ),
             FeatureItemData(
-                title="Dolor Sitema", 
-                description="Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident",
+                title="Personalized Learning Path", 
+                description="Students can interact with each other without distractions from other barriers",
                 icon_div=IconDiv(
                     icon_class="bi bi-bar-chart",
                     color="#d90769",
@@ -46,6 +49,7 @@ class HomePageView(TemplateView):
         ]
 
         context['feature_items'] = feature_items
+        context['top_queries'] = Query.objects.order_by('-votes')[:4]
         # Add more data to the context if needed
         return context
     

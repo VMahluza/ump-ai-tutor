@@ -16,7 +16,18 @@ class Course(models.Model):
     def __str__(self) -> str:
         return self.name
 
-# ./END OF COURSE MODEL
+# ./END OF MODULE MODEL
+class Module(models.Model):
+    code = models.CharField(max_length=50, blank=True, null=True)
+    name = models.CharField(max_length=50, blank=True, null=True)
+    description = models.TextField(max_length=150, blank=True, null=True)
+    course = models.ForeignKey(Course, blank=True, null=True, on_delete=models.CASCADE)
+    def __str__(self) -> str:
+        return self.name
+# ./END OF MODULE MODEL
+
+
+
 
 # Create your models here.
 # START OF USER MODEL
@@ -26,13 +37,12 @@ class User(AbstractUser):
         STUDENT = "STUDENT", "Student"
         LECTURE = "LECTURE", "LECTURE"
         TUTOR = "TUTOR", "TUTOR"
-
     class Gender(models.TextChoices):
         MALE = "MALE", "Male"
         FEMALE = "FEMALE", "Female"
     auth_key = models.CharField(unique=True, null=True, blank=True,max_length=9)
 
-    
+    profile_pic = models.ImageField(upload_to='images/user_profile_pictures/', null=True, blank=True)
 
     base_role = Role.ADMIN
     role = models.CharField(max_length=50, choices=Role.choices)
@@ -45,12 +55,19 @@ class User(AbstractUser):
         help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
     )
     gender = models.CharField(max_length=50, default=Gender.MALE, choices=Gender.choices)
+
+    @property
+    def get_full_name(self):
+        return self.first_name + ' ' + self.last_name
     def save(self, *args, **kwargs):
         if not self.pk:
             self.role = self.base_role
             return super().save(*args, **kwargs)
         else:
           return super().save(*args, **kwargs)
+        
+    def __str__(self):
+        return self.get_full_name
 # ./END OF USER MODEL
 
 # START OF REGISTRATION MODEL
@@ -66,6 +83,7 @@ class Registration(models.Model):
     level_of_study = models.CharField(max_length=50, default=Level.FIRST_YEAR, choices=Level.choices)
 
 # ./END OF REGISTRATION MODEL
+
 
 
 # START OF STUDENT MODEL
@@ -148,5 +166,62 @@ class AuthKeys(models.Model):
     authkey = models.CharField(unique=True, null=True, blank=True,max_length=9)
     available = models.BooleanField(default=True)
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
+
+
+# ./END OF MODULE MODEL
+class Query(models.Model):
+    question_text = models.TextField(max_length=1000, null=True, blank=False)
+    pub_date = models.DateTimeField(auto_now=True, blank=True, null=True)
+    # Other fields related to questions
+    votes = models.IntegerField(default=0, null=True, blank=True)
+    module = models.ForeignKey(Module, blank=True, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, blank=True, null=True, on_delete=models.CASCADE)
+    
+
+    def __str__(self):
+        return self.question_text
+    
+    @property
+    def short_question(self):
+        # accesskey[:2] + "*" * 5 +  accesskey[7:]
+        return self.question_text[:25] + "."*3
+    
+    @property
+    def answers(self):
+        print(self)
+        return Answer.objects.filter(query_id=self.id)
+
+
+@receiver(post_save, sender=Query)
+def broadcast_question_to_everyone(sender, instance, created, **kwargs):
+    if created:
+        print("Broadcasting Question to everyone doing this module")  
+
+# ./END OF MODULE MODEL
+# ./END OF MODULE MODEL
+class Answer(models.Model):
+    answer_text = models.TextField(max_length=1000, null=True, blank=False)
+    pub_date = models.DateTimeField(auto_now=True, blank=True, null=True)
+    # Other fields related to questions
+    votes = models.IntegerField(default=0, null=True, blank=True)
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE) 
+    query = models.ForeignKey(Query, blank=True, null=True, on_delete=models.CASCADE, related_name='answers')
+
+    def __str__(self):
+        return self.answer_text
+    
+    @property
+    def short_question(self):
+        # accesskey[:2] + "*" * 5 +  accesskey[7:]
+        return self.answer_text[:25]
+
+
+@receiver(post_save, sender=Query)
+def broadcast_answer_to_everyone(sender, instance, created, **kwargs):
+    if created:
+        print("Broadcasting Answer to everyone doing this module")  
+
+# ./END OF MODULE MODEL
 
     

@@ -1,0 +1,134 @@
+<style>
+    .button1 {
+  background-color: #F2F7FA;
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  overflow: hidden;
+  transition-duration: 700ms;
+}
+
+.button1 span:first-child {
+  color: #0E418F;
+  position: absolute;
+  transform: translate(-50%, -50%)
+}
+
+.button1 span:last-child {
+  position: absolute;
+  color: #B5CCF3;
+  opacity: 0;
+  transform: translateY(100%) translateX(-50%);
+  height: 14px;
+  line-height: 13px;
+}
+
+.button1:focus {
+  background-color: #0E418F;
+  width: 120px;
+  height: 40px;
+  transition-delay: 100ms;
+  transition-duration: 500ms;
+}
+
+.button1:focus span:first-child {
+  color: #B5CCF3;
+  transform: translateX(-50%) translateY(-150%);
+  opacity: 0;
+  transition-duration: 500ms;
+}
+
+.button1:focus span:last-child {
+  transform: translateX(-50%) translateY(-50%);
+  opacity: 1;
+  transition-delay: 300ms;
+  transition-duration: 500ms;
+}
+
+.button1:focus:end {
+  background-color: #FFFFFF;
+  width: 120px;
+  height: 40px;
+  transition-duration: 900ms;
+}
+
+.centralize {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.description {
+  margin-top: 10px;
+  color: #B5CCF3;
+}
+</style>
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Datatables</h5>
+  
+                    <!-- Table with stripped rows -->
+                    <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+                        <div class="datatable-container">
+                            <table class="table datatable datatable-table">
+                                <thead>
+                                    <tr>
+                                        <th data-sortable="true" style="width: 5.614035087719298%;"><a href="#"
+                                                class="datatable-sorter">#</a></th>
+                                        <th data-sortable="true" style="width: 28.07017543859649%;"><a href="#"
+                                                class="datatable-sorter">Name</a></th>
+                                        <th data-sortable="true" style="width: 37.719298245614034%;"><a href="#"
+                                                class="datatable-sorter">Surname</a></th>
+                                        <th data-sortable="true" style="width: 9.298245614035087%;"><a href="#"
+                                                class="datatable-sorter">Gender</a></th>
+                                        <th data-sortable="true" style="width: 19.298245614035086%;"><a href="#"
+                                                class="datatable-sorter">Status</a></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  {% for regs in active_users %}
+
+                                  <tr data-index="{{forloop.counter}}">
+                                      <td>{{regs.user.id}}</td>
+                                      <td>{{regs.user.first_name}}</td>
+                                      <td>{{regs.user.last_name}}</td>
+                                      <td>{{regs.user.gender}}</td>
+                                      <td>
+                                        
+                                        {% if regs.user.is_active %}
+                                        <i  class="bi bi-record-fill text-success"></i>
+                                        <spna class="text-success">Online</span>
+                                          {% else %}
+                                          <i  class="bi bi-record-fill text-danger"></i>
+                                          <spna class="text-danger">Offline</span>
+                                        {% endif %}
+                                      </td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="datatable-bottom">
+                            <div class="datatable-info">Showing 1 to 5 of 5 entries</div>
+                            <nav class="datatable-pagination">
+                                <ul class="datatable-pagination-list"></ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- End Table with stripped rows -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

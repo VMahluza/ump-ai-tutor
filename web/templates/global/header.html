@@ -153,8 +153,14 @@
       <a href="/" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <div><img src="{% static 'BinaBendits.png' %}" alt="" srcset=""><img src="{% static 'BinaBendits-txt.png' %}" width="200px"></div>
-        <h1 class="d-flex align-items-center">AI Tutor</h1>
+        <div>
+          {% comment %} <img src="{% static 'BinaBendits.png' %}" alt="" srcset="">
+          <img src="{% static 'BinaBendits-txt.png' %}" width="200px"> {% endcomment %}
+          <img style="" src="{% static 'ai-tutor-logo-small.png' %}">
+          
+        </div>
+        <img class="d-flex align-items-center" src="{% static 'ai-tutor-logo-text.png' %}">
+        {% comment %} <h1 class="d-flex align-items-center">AI Tutor</h1> {% endcomment %}
       </a>
 
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
@@ -168,8 +174,13 @@
           <li><a href="#recent-posts">Top Questions</a></li>
           <li><a href="#contact">Contact</a></li>
           <li style="display: flex;column-gap: 30px;">
+            {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" id="register-btn" class="btn-get-started">Hi, {{user.first_name}}</a>
+            <a href="{% url 'logout' %}" id="login-btn" class="btn-get-started">Logout</a>
+            {% else %}
             <a href="{% url 'usertype' %}" id="register-btn" class="btn-get-started">Sign Up</a>
             <a href="{% url 'login' %}" id="login-btn" class="btn-get-started">Sign In</a>
+            {% endif %}
           </li>
         </ul>
       </nav><!-- .navbar -->
