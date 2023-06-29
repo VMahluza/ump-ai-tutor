@@ -113,9 +113,9 @@
                                             <div class="card">
                                                 <div class="card-header">
                                                     <div>
-                                                        {% if query.user.profile_pic %}
+                                                        {% if answer.user.profile_pic %}
 
-                                                        <img src="{{query.user.profile_pic.url}}" alt="avatar 1" class="rounded-circle"
+                                                        <img src="{{answer.user.profile_pic.url}}" alt="avatar 1" class="rounded-circle"
                                                             style="width: 45px; height: 100%;">
                                                         {% else %}
                                                         <img src="{% static 'web/assets/img/team/chatbot.webp' %}" alt="avatar 1"
