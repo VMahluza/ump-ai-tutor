@@ -12,6 +12,7 @@ from dashboard.models import AuthKeys, Registration
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from dashboard.models import Query
 from django.contrib.auth.views import PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from dashboard.models import User
 
 from django.contrib.auth.views import PasswordResetView
 class HomePageView(CreateView):
@@ -101,9 +102,10 @@ class CustomLoginView(LoginView):
     template_name = 'auth/login.html'
     form_class = LoginForm
     def get_success_url(self):
-        user = self.request.user
+        user = User.objects.get(user=self.request.user)
         if not user.is_active:
             user.is_active = True
+            user.save()
             
         registration = Registration.objects.filter(user=self.request.user)
         if registration:
