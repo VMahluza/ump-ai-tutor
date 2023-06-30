@@ -1,6 +1,6 @@
 from .views import HomePageView, CustomLoginView,StudentSignUpView, UserTypePageView,RegistrationPageView , TutorSignUpView, LectureSignUpView
 from django.urls import path, include, re_path
-from .views import CustomPasswordResetView, CustomPasswordResetCompleteView, CustomPasswordResetDoneView
+from .views import CustomPasswordResetView, CustomPasswordResetCompleteView, CustomPasswordResetDoneView, CustomPasswordResetConfirmView
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -17,7 +17,7 @@ urlpatterns = [
   # Other URL patterns
     path('password-reset/', CustomPasswordResetView.as_view(), name='password_reset'),
     path('password-reset/done/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('password-reset/confirm/<uidb64>/<token>/', CustomPasswordResetCompleteView.as_view(), name='password_reset_confirm'),
+    path('password-reset/confirm/<uidb64>/<token>/', CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('password-reset/complete/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
     # Other URL patterns
 

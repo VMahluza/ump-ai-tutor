@@ -197,7 +197,7 @@ class CustomPasswordResetView(PasswordResetView):
     form_class = CustomPasswordResetForm
     template_name = 'auth/password_reset.html'
     email_template_name = 'auth/password_reset_email.html'
-    success_url = 'auth/login'
+    success_url = '/auth/login'
 
 
 class CustomPasswordResetDoneView(PasswordResetDoneView):
