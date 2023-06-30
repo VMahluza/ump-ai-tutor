@@ -225,6 +225,8 @@ class CustomPasswordResetForm(PasswordResetForm):
         label="Email", 
         widget=forms.EmailInput(attrs={"class": "form-control", "placeholder":"Email"})
         )
+    
+    
 
     
 class CustomSetPasswordForm(SetPasswordForm):
