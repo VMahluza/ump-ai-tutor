@@ -225,21 +225,21 @@ class CustomPasswordResetForm(PasswordResetForm):
         label="Email", 
         widget=forms.EmailInput(attrs={"class": "form-control", "placeholder":"Email"})
         )
+
     
 class CustomSetPasswordForm(SetPasswordForm):
     new_password1 = forms.CharField(
-        label=_("New password"),
+        label="New password",
         widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "form-control", "placeholder":"Enter new password"}),
         strip=False,
         help_text=password_validation.password_validators_help_text_html(),
     )
     new_password2 = forms.CharField(
-        label=_("New password confirmation"),
+        label="New password confirmation",
         strip=False,
         widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "form-control", "placeholder":"Repeat password"}),
     )
 
-    
 class LectureSignUpForm(UserCreationForm):
     auth_key = forms.CharField(
         label="Email", 
