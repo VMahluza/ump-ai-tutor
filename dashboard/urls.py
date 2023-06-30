@@ -1,5 +1,6 @@
 from .views import HomeDashboardPageView, change_password, ActiveUsersboardPageView ,UserProfilePageView, QAForumPageView, TutorDashboardPageView, generate_auth_key, up_vote_query, down_vote_query, add_answer_to_query
 from django.urls import path, include
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
@@ -16,4 +17,6 @@ urlpatterns = [
     path(r'^profile/$', UserProfilePageView.as_view(), name='profile-param'),
     path('change-password', change_password, name='change-password'),
     # Other URL patterns...
+
+
 ]

@@ -185,3 +185,6 @@ def change_password(request):
     else:
         form = ChangePasswordForm(request.user)
     return redirect('./profile?password_error=wrong_password')
+
+
+

@@ -12,7 +12,6 @@ from dashboard.models import AuthKeys, Registration
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from dashboard.models import Query
 
-
 class HomePageView(CreateView):
     template_name = 'index.html'
     form_class = UserRequestForm
@@ -190,6 +189,11 @@ class LectureSignUpView(UserPassesTestMixin, CreateView):
         # Add more data to the context if needed
         return context
 
-    
+    # views.py
+from django.contrib.auth.views import PasswordResetView
 
- 
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'global/password_reset.html'
+    email_template_name = 'global/password_reset_email.html'
+    success_url = '/login'
+
