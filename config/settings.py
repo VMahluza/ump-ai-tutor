@@ -154,7 +154,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'thekilterofvictory@gmail.com'
-EMAIL_HOST_PASSWORD = 'Ump@2023'
+EMAIL_HOST_PASSWORD = 'qiepoizaijtcghvy'
 
 
 
