@@ -7,7 +7,7 @@ from django.contrib.auth.views import LoginView
 from .forms import LoginForm, RegistrationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from .forms import StudentSignUpForm, TutorSignUpForm, LectureSignUpForm, UserRequestForm
+from .forms import StudentSignUpForm, TutorSignUpForm, LectureSignUpForm, UserRequestForm, CustomPasswordResetForm
 from dashboard.models import AuthKeys, Registration
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from dashboard.models import Query
@@ -193,6 +193,7 @@ class LectureSignUpView(UserPassesTestMixin, CreateView):
 from django.contrib.auth.views import PasswordResetView
 
 class CustomPasswordResetView(PasswordResetView):
+    form_class = CustomPasswordResetForm
     template_name = 'auth/password_reset.html'
     email_template_name = 'auth/password_reset_email.html'
     success_url = 'auth/login'

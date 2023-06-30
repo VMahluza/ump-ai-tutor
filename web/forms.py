@@ -6,6 +6,7 @@ from django.contrib.auth import password_validation
 from dashboard.models import User, AuthKeys, Registration
 from django.shortcuts import render, redirect
 from .models import UserRequest
+from django.contrib.auth.forms import PasswordResetForm
 class LoginForm(AuthenticationForm):
     # username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your username'}))
     # password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter your password'}))
@@ -218,7 +219,13 @@ class UserRequestForm(forms.ModelForm):
             )
         
 
-
+class CustomPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(
+        required=True, 
+        label="Email", 
+        widget=forms.EmailInput(attrs={"class": "form-control", "placeholder":"Email"})
+        )
+    
 class LectureSignUpForm(UserCreationForm):
     auth_key = forms.CharField(
         label="Email", 
