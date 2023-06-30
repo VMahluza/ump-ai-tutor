@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.mail import send_mail
 
 
 # START OF COURSE MODEL
@@ -94,14 +95,16 @@ class StudentManager(BaseUserManager):
 class Student(User):
     base_role = User.Role.STUDENT
     student = StudentManager()
-
     class Meta:
         proxy = True
 
     def welcome(self):
         return "Only for Students"
+    
+    
 class StudentProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    receive_emails = models.BooleanField(default=False)
 # This function automatically create a new student profile when a student is created
 @receiver(post_save, sender=Student)
 def create_student_profile(sender, instance, created, **kwargs):
@@ -125,6 +128,8 @@ class Lecture(User):
         return "Only for Students"
 class LectureProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    receive_emails = models.BooleanField(default=False)
+
 # This function automatically create a new student profile when a student is created
 @receiver(post_save, sender=Lecture)
 def create_lecture_profile(sender, instance, created, **kwargs):
@@ -148,6 +153,8 @@ class Tutor(User):
         return "Only for Students"
 class TutorProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    receive_emails = models.BooleanField(default=False)
+
 # This function automatically create a new student profile when a student is created
 @receiver(post_save, sender=Tutor)
 def create_tutor_profile(sender, instance, created, **kwargs):
@@ -157,7 +164,6 @@ def create_tutor_profile(sender, instance, created, **kwargs):
         TutorProfile.objects.create(user=instance)  
 # ./END OF TUTOR MODEL
 
-
 class AuthKeys(models.Model):
     class Role(models.TextChoices):
         LECTURE = "LECTURE", "LECTURE"
@@ -166,7 +172,6 @@ class AuthKeys(models.Model):
     authkey = models.CharField(unique=True, null=True, blank=True,max_length=9)
     available = models.BooleanField(default=True)
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
-
 
 # ./END OF MODULE MODEL
 class Query(models.Model):
@@ -196,6 +201,21 @@ class Query(models.Model):
 @receiver(post_save, sender=Query)
 def broadcast_question_to_everyone(sender, instance, created, **kwargs):
     if created:
+        from_email = 'binarybendits@gmail.com'
+        course = instance.course 
+        registrations = Registration.objects.filter(course=course)
+        recipient_list = [registration.user.email for registration in registrations]
+
+        subject = f'Query for module {instance.module} Have been asked'
+        message = f"""
+        The question bellow was asked 
+        {instance.question_text}
+        if you wish to respond to the question please visit the our site 
+        https://ump-ai-tutor-68e7ae10f930.herokuapp.com/
+        """
+
+        send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+         
         print("Broadcasting Question to everyone doing this module")  
 
 # ./END OF MODULE MODEL

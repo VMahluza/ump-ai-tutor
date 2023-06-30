@@ -202,6 +202,7 @@ class LectureSignUpView(UserPassesTestMixin, CreateView):
 class CustomPasswordResetView(PasswordResetView):
     form_class = CustomPasswordResetForm
     template_name = 'auth/password_reset.html'
+    from_email = "binarybendits@gmail.com"
     email_template_name = 'auth/password_reset_email.html'
     success_url = '/auth/login'
 
