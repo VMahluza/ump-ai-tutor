@@ -206,7 +206,7 @@ class CustomPasswordResetDoneView(PasswordResetDoneView):
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     form_class = CustomSetPasswordForm
     template_name = "auth/password_reset_confirm.html"
-class CustomPasswordResetComplete(PasswordResetCompleteView):
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = "auth/password_reset_complete.html"
     
 
