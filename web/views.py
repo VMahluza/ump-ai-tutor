@@ -193,7 +193,7 @@ class LectureSignUpView(UserPassesTestMixin, CreateView):
 from django.contrib.auth.views import PasswordResetView
 
 class CustomPasswordResetView(PasswordResetView):
-    template_name = 'global/password_reset.html'
-    email_template_name = 'global/password_reset_email.html'
-    success_url = '/login'
+    template_name = 'auth/password_reset.html'
+    email_template_name = 'auth/password_reset_email.html'
+    success_url = 'auth/login'
 
