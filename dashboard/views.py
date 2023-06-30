@@ -170,7 +170,7 @@ def add_answer_to_query(request):
 
 class LogoutView(View):
     def get(self, request):
-        user = User.objects.get(user=self.request.user)
+        user = User.objects.get(id=self.request.user.id)
         if user.is_active:
             user.is_active = False
             user.save()

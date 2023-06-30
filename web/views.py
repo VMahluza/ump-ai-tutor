@@ -102,7 +102,7 @@ class CustomLoginView(LoginView):
     template_name = 'auth/login.html'
     form_class = LoginForm
     def get_success_url(self):
-        user = User.objects.get(user=self.request.user)
+        user = User.objects.get(id=self.request.user.id)
         if not user.is_active:
             user.is_active = True
             user.save()
