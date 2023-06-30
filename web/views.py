@@ -7,7 +7,7 @@ from django.contrib.auth.views import LoginView
 from .forms import LoginForm, RegistrationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from .forms import StudentSignUpForm, TutorSignUpForm, LectureSignUpForm, UserRequestForm, CustomPasswordResetForm
+from .forms import StudentSignUpForm, TutorSignUpForm, LectureSignUpForm, UserRequestForm, CustomPasswordResetForm, CustomSetPasswordForm
 from dashboard.models import AuthKeys, Registration
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from dashboard.models import Query
@@ -197,4 +197,16 @@ class CustomPasswordResetView(PasswordResetView):
     template_name = 'auth/password_reset.html'
     email_template_name = 'auth/password_reset_email.html'
     success_url = 'auth/login'
+
+from django.contrib.auth.views import PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = "auth/password_reset_done.html"
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    form_class = CustomSetPasswordForm
+    template_name = "auth/password_reset_confirm.html"
+class CustomPasswordResetComplete(PasswordResetCompleteView):
+    template_name = "auth/password_reset_complete.html"
+    
 
