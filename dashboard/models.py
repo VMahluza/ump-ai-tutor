@@ -213,7 +213,6 @@ def broadcast_question_to_everyone(sender, instance, created, **kwargs):
         if you wish to respond to the question please visit the our site 
         https://ump-ai-tutor-68e7ae10f930.herokuapp.com/
         """
-
         send_mail(subject, message, from_email, recipient_list, fail_silently=False)
          
         print("Broadcasting Question to everyone doing this module")  
