@@ -101,6 +101,10 @@ class CustomLoginView(LoginView):
     template_name = 'auth/login.html'
     form_class = LoginForm
     def get_success_url(self):
+        user = self.request.user
+        if not user.is_active:
+            user.is_active = True
+            
         registration = Registration.objects.filter(user=self.request.user)
         if registration:
             return reverse_lazy('dashboard')

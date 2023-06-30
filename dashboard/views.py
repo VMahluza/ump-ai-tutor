@@ -170,6 +170,10 @@ def add_answer_to_query(request):
 
 class LogoutView(View):
     def get(self, request):
+        user = self.request.user
+        if user.is_active:
+            user.is_active = False
+            
         logout(request)
         # return redirect('/login')
         return redirect('/auth/login/')
