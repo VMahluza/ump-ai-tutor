@@ -60,7 +60,7 @@ class UserProfileUpdateForm(forms.ModelForm):
 class LoggedTicketForm(forms.ModelForm):
     class Meta:
         model = LoggedTicket
-        fields = ['guestname', 'email', 'subject', 'message']
+        fields = ['guest_name', 'email', 'subject', 'message']
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:

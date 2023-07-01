@@ -14,6 +14,7 @@ class LoggedTicket(models.Model):
     email = models.EmailField(max_length=50)
     subject = models.CharField(max_length=50)
     message = models.TextField(max_length=150)
+    resolve = models.BooleanField(default=False)
 
     def __str__(self):
         return self.subject
@@ -29,10 +30,20 @@ def broadcast_logged_ticket_success(sender, instance, created, **kwargs):
         or revisit:
         https://ump-ai-tutor-68e7ae10f930.herokuapp.com/
         """
+        admin_message = f"""
+        Hi All Administrators, 
+        {instance.guest_name} with email {instance.email} has logged a ticket #{instance.id}
+
+        \n 
+
+        To attend this please visit 
+
+        https://ump-ai-tutor-68e7ae10f930.herokuapp.com/admin
+        """
         send_mail(subject, message, from_email, recipient_list, fail_silently=False)
         admins = User.objects.filter(is_staff=True)
         admin_email_list = [admin.email for admin in admins]
-        send_mail(subject, message, from_email, admin_email_list, fail_silently=False)
+        send_mail(subject, admin_message, from_email, admin_email_list, fail_silently=False)
 
         print("Query received")
 # START OF COURSE MODEL

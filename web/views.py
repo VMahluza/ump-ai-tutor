@@ -238,6 +238,8 @@ def contactUs(request):
         subject = request.POST.get('subject')
         message = request.POST.get('message')
 
+        print(guest_name, email, subject, message)
+
         try:
             logged = LoggedTicket.objects.create(
                 guest_name=guest_name,
@@ -245,6 +247,10 @@ def contactUs(request):
                 subject=subject,
                 message=message
             )
+
+            print(logged)
+
+            logged.save()
         except Exception as e:
             print(f"An error occurred: {str(e)}")
             return redirect('/')
