@@ -37,6 +37,15 @@
       </li><!-- End Profile Page Nav -->
       {% endif %}
 
+      {% if user.is_staff %}
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'tickets' %}">
+          <i class="bi bi-ticket"></i>
+          <span>Tickets</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+      {% endif %}
+
     </ul>
 
   </aside><!-- End Sidebar-->

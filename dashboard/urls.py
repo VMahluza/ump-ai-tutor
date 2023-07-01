@@ -1,4 +1,4 @@
-from .views import HomeDashboardPageView, change_password, ActiveUsersboardPageView ,UserProfilePageView, QAForumPageView, TutorDashboardPageView, generate_auth_key, up_vote_query, down_vote_query, add_answer_to_query
+from .views import HomeDashboardPageView, resolveTicket,LoggedTicketListView, change_password, ActiveUsersboardPageView ,UserProfilePageView, QAForumPageView, TutorDashboardPageView, generate_auth_key, up_vote_query, down_vote_query, add_answer_to_query
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 
@@ -15,7 +15,10 @@ urlpatterns = [
     path('add-answer-to-query', add_answer_to_query, name='add-answer-to-query'),
     path('profile', UserProfilePageView.as_view(), name='profile'),
     path(r'^profile/$', UserProfilePageView.as_view(), name='profile-param'),
+    path(r'^resolved-ticket/', resolveTicket, name='resolved-ticket'),
     path('change-password', change_password, name='change-password'),
+    path('tickets', LoggedTicketListView.as_view(), name='tickets'),
+
     # Other URL patterns...
 
 

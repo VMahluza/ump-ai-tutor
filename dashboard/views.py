@@ -22,6 +22,7 @@ from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from .models import Student, Lecture, Tutor
 import datetime
+from django.core.mail import send_mail
 
 
 
@@ -190,5 +191,47 @@ def change_password(request):
         form = ChangePasswordForm(request.user)
     return redirect('./profile?password_error=wrong_password')
 
+from django.views.generic import ListView
+from .models import LoggedTicket
+class LoggedTicketListView(ListView):
+    model = LoggedTicket
+    template_name = 'pages/tickets/index.html'
+    context_object_name = 'tickets'
+    ordering = ['resolve']
 
+def resolveTicket(request):
+
+    ticket_id = request.GET.get('tid')
+
+    try:
+        ticket = LoggedTicket.objects.get(id=ticket_id)
+        ticket.resolve = True
+        ticket.save()
+
+        if ticket.resolve:
+            from_email = 'binarybendits@gmail.com'
+            recipient_list = [ticket.email]
+            subject = f'Ticket #{ticket.id}:  Resolved 😊'
+            message = f"""
+                Dear {ticket.guest_name},
+
+                We are pleased to inform you that your ticket with reference number #{ticket.id} and subject "{ticket.subject}" has been resolved.
+
+                Our team has thoroughly addressed your concern, and we are happy to assist you further if needed. 
+                Feel free to visit the following link for any updates or if you have any additional questions:
+
+                Website: https://ump-ai-tutor-68e7ae10f930.herokuapp.com/
+
+                Thank you for choosing BinaryBendits for your support needs. We appreciate your patience and understanding throughout the process.
+
+                Best regards,
+
+                The BinaryBendits Team
+                """
+
+        send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+    except:
+        return redirect('tickets')
+
+    return redirect('tickets')
 
