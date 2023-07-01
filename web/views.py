@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
 from .forms import LoginForm, RegistrationForm
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, View
 from .forms import StudentSignUpForm, TutorSignUpForm, LectureSignUpForm, UserRequestForm, CustomPasswordResetForm, CustomSetPasswordForm
 from dashboard.models import AuthKeys, Registration
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -230,36 +230,28 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = "auth/password_reset_complete.html"
 
+
 def contactUs(request):
-    
     if request.method == "POST":
-        geust_name  = request.POST.get('name')
+        guest_name = request.POST.get('name')
         email = request.POST.get('email')
         subject = request.POST.get('subject')
         message = request.POST.get('message')
 
         try:
             logged = LoggedTicket.objects.create(
-            geust_name = geust_name,
-            email = email,
-            subject = subject, 
-            message = message
+                guest_name=guest_name,
+                email=email,
+                subject=subject,
+                message=message
             )
-            logged.save()
-
-            
-        except:    
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
             return redirect('/')
-        finally:
-            redirect('/')
-
-            
-    
+        
+        return redirect('/')
     else:
         return redirect('/')
-
-
-
 
     
 

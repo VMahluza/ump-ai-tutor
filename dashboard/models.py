@@ -10,10 +10,10 @@ from django.core.mail import send_mail
 
 
 class LoggedTicket(models.Model):
-    guestname = models.CharField(max_length=50, blank=False, null=False)
-    email = models.EmailField(max_length=50, blank=False, null=False)
-    subject = models.CharField(max_length=50, blank=False, null=False)
-    message = models.TextField(max_length=150, blank=False, null=False)
+    guest_name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50)
+    subject = models.CharField(max_length=50)
+    message = models.TextField(max_length=150)
 
     def __str__(self):
         return self.subject
@@ -23,10 +23,10 @@ def broadcast_logged_ticket_success(sender, instance, created, **kwargs):
     if created:
         from_email = 'binarybendits@gmail.com'
         recipient_list = [instance.email]
-        subject = f'Your query has been Received'
-        message = f"""
-        BinaryBendits team members will work on it as soon as possible hang tight
-        or revisit
+        subject = 'Your query has been received'
+        message = """
+        BinaryBendits team members will work on it as soon as possible. Hang tight
+        or revisit:
         https://ump-ai-tutor-68e7ae10f930.herokuapp.com/
         """
         send_mail(subject, message, from_email, recipient_list, fail_silently=False)
@@ -34,10 +34,7 @@ def broadcast_logged_ticket_success(sender, instance, created, **kwargs):
         admin_email_list = [admin.email for admin in admins]
         send_mail(subject, message, from_email, admin_email_list, fail_silently=False)
 
-        
-
-        print("Query received")  
-
+        print("Query received")
 # START OF COURSE MODEL
 class Course(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
