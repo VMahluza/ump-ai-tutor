@@ -103,8 +103,8 @@ class CustomLoginView(LoginView):
     form_class = LoginForm
     def get_success_url(self):
         user = User.objects.get(id=self.request.user.id)
-        if not user.is_active:
-            user.is_active = True
+        if not user.is_online:
+            user.is_online = True
             user.save()
             
         registration = Registration.objects.filter(user=self.request.user)
@@ -202,12 +202,11 @@ class LectureSignUpView(UserPassesTestMixin, CreateView):
 class CustomPasswordResetView(PasswordResetView):
     form_class = CustomPasswordResetForm
     template_name = 'auth/password_reset.html'
-    from_email = "binarybendits@gmail.com"
+    # from_email = "binarybendits@gmail.com"
     email_template_name = 'auth/password_reset_email.html'
     success_url = '/auth/login'
 
-    def form_valid(self, form):
-        print("Form validation: IsValid")
+    def form_valid(self, form): 
         opts = {
             "use_https": self.request.is_secure(),
             "token_generator": self.token_generator,

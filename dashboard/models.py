@@ -57,6 +57,8 @@ class User(AbstractUser):
     )
     gender = models.CharField(max_length=50, default=Gender.MALE, choices=Gender.choices)
 
+    is_online = models.BooleanField(default=False)
+
     @property
     def get_full_name(self):
         return self.first_name + ' ' + self.last_name

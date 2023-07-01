@@ -172,7 +172,7 @@ class LogoutView(View):
     def get(self, request):
         user = User.objects.get(id=self.request.user.id)
         if user.is_active:
-            user.is_active = False
+            user.is_online = False
             user.save()
 
         logout(request)
