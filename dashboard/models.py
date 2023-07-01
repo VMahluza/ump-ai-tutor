@@ -25,7 +25,8 @@ def broadcast_logged_ticket_success(sender, instance, created, **kwargs):
         from_email = 'binarybendits@gmail.com'
         recipient_list = [instance.email]
         subject = 'Your query has been received'
-        message = """
+        message = f"""
+        Hi {instance.guest_name}, \n
         BinaryBendits team members will work on it as soon as possible. Hang tight
         or revisit:
         https://ump-ai-tutor-68e7ae10f930.herokuapp.com/
