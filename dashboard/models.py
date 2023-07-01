@@ -34,8 +34,8 @@ def broadcast_logged_ticket_success(sender, instance, created, **kwargs):
         admin_email_list = [admin.email for admin in admins]
         send_mail(subject, message, from_email, admin_email_list, fail_silently=False)
 
-    
-         
+        
+
         print("Query received")  
 
 # START OF COURSE MODEL
