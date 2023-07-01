@@ -24,23 +24,47 @@ def broadcast_logged_ticket_success(sender, instance, created, **kwargs):
     if created:
         from_email = 'binarybendits@gmail.com'
         recipient_list = [instance.email]
-        subject = 'Your query has been received'
+        subject = f'#{instance.id}Ticket: {instance.subject}'
         message = f"""
-        Hi {instance.guest_name}, \n
-        BinaryBendits team members will work on it as soon as possible. Hang tight
-        or revisit:
-        https://ump-ai-tutor-68e7ae10f930.herokuapp.com/
-        """
+            Hi {instance.guest_name},
+
+            \n\n
+
+            Thank you for reaching out to BinaryBendits. \n
+            We have received your ticket and our team members are actively working on it. Please be patient while we address your query.
+
+            \n\n
+            
+            You can revisit the following link for updates and further information:
+            https://ump-ai-tutor-68e7ae10f930.herokuapp.com/
+
+            \n
+            \n
+            
+            Reference Number: #{instance.id} \n\n
+
+            If you have any additional questions or concerns, please don't hesitate to contact us. \n\n
+
+            Best regards, \n
+            The BinaryBendits Team
+            """
+
         admin_message = f"""
-        Hi All Administrators, 
-        {instance.guest_name} with email {instance.email} has logged a ticket #{instance.id}
+            Hi All Administrators,
+            \n\n
+            A new ticket has been logged by {instance.guest_name} with email {instance.email}.
+            \n\n
+            Reference Number: #{instance.id}
+            \n\n
+            Please visit the admin panel to attend to this ticket:
+            https://ump-ai-tutor-68e7ae10f930.herokuapp.com/admin
+            \n\n
+            Thank you for your attention.
+            \n\n
+            Best regards,
+            BinaryBendits Support Team
+            """
 
-        \n 
-
-        To attend this please visit 
-
-        https://ump-ai-tutor-68e7ae10f930.herokuapp.com/admin
-        """
         send_mail(subject, message, from_email, recipient_list, fail_silently=False)
         admins = User.objects.filter(is_staff=True)
         admin_email_list = [admin.email for admin in admins]
