@@ -22,7 +22,7 @@
 
               <div class="pt-4 pb-2">
                 <h5 class="card-title text-center pb-0 fs-4">Choose Account Type</h5>
-                <p class="text-center small">Enter your access key if you are a lecture or tutor</p>
+                <p class="text-center small">Enter your access key if you are a lecture or tutor, Students can proceed to sign up with access keys</p>
               </div>
 
               <form action="{% url 'usertype' %}" class="row g-3 needs-validation" method='post' novalidate>
@@ -40,6 +40,9 @@
                     </div>
                   </div>
 
+                  <div class="col-12">
+                   -- OR --
+                  </div>
                 <div class="col-12">
                   <button class="sign-up btn btn-primary w-100" type="submit">Proceed to Sign Up</button>
                 </div>
