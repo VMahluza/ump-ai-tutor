@@ -28,20 +28,13 @@ def broadcast_logged_ticket_success(sender, instance, created, **kwargs):
         message = f"""
             Hi {instance.guest_name},
 
-            \n\n
-
-            Thank you for reaching out to BinaryBendits. \n
+            Thank you for reaching out to BinaryBendits.
             We have received your ticket and our team members are actively working on it. Please be patient while we address your query.
-
-            \n\n
             
             You can revisit the following link for updates and further information:
             https://ump-ai-tutor-68e7ae10f930.herokuapp.com/
 
-            \n
-            \n
-            
-            Reference Number: #{instance.id} \n\n
+            Reference Number: #{instance.id}
 
             If you have any additional questions or concerns, please don't hesitate to contact us. \n\n
 
@@ -51,16 +44,16 @@ def broadcast_logged_ticket_success(sender, instance, created, **kwargs):
 
         admin_message = f"""
             Hi All Administrators,
-            \n\n
+            
             A new ticket has been logged by {instance.guest_name} with email {instance.email}.
-            \n\n
+            
             Reference Number: #{instance.id}
-            \n\n
+            
             Please visit the admin panel to attend to this ticket:
             https://ump-ai-tutor-68e7ae10f930.herokuapp.com/admin
-            \n\n
+            
             Thank you for your attention.
-            \n\n
+            
             Best regards,
             BinaryBendits Support Team
             """
