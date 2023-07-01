@@ -40,7 +40,6 @@ class HomeDashboardPageView(LoginRequiredMixin, TemplateView):
         context['top_queries'] = Query.objects.order_by('-votes')[:6]
         context['current_time'] = str(datetime.datetime.now())
 
-
         # Add more data to the context if needed
         return context
 # Create your views here.

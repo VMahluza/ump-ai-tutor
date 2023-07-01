@@ -12,7 +12,7 @@ from dashboard.models import AuthKeys, Registration
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from dashboard.models import Query
 from django.contrib.auth.views import PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
-from dashboard.models import User
+from dashboard.models import User, LoggedTicket
 
 from django.contrib.auth.views import PasswordResetView
 class HomePageView(CreateView):
@@ -229,5 +229,37 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = "auth/password_reset_confirm.html"
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = "auth/password_reset_complete.html"
+
+def contactUs(request):
+    
+    if request.method == "POST":
+        geust_name  = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+
+        try:
+            logged = LoggedTicket.objects.create(
+            geust_name = geust_name,
+            email = email,
+            subject = subject, 
+            message = message
+            )
+            logged.save()
+
+            
+        except:    
+            return redirect('/')
+        finally:
+            redirect('/')
+
+            
+    
+    else:
+        return redirect('/')
+
+
+
+
     
 

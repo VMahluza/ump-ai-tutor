@@ -9,6 +9,35 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.mail import send_mail
 
 
+class LoggedTicket(models.Model):
+    guestname = models.CharField(max_length=50, blank=False, null=False)
+    email = models.EmailField(max_length=50, blank=False, null=False)
+    subject = models.CharField(max_length=50, blank=False, null=False)
+    message = models.TextField(max_length=150, blank=False, null=False)
+
+    def __str__(self):
+        return self.subject
+
+@receiver(post_save, sender=LoggedTicket)
+def broadcast_logged_ticket_success(sender, instance, created, **kwargs):
+    if created:
+        from_email = 'binarybendits@gmail.com'
+        recipient_list = [instance.email]
+        subject = f'Your query has been Received'
+        message = f"""
+        BinaryBendits team members will work on it as soon as possible hang tight
+        or revisit
+        https://ump-ai-tutor-68e7ae10f930.herokuapp.com/
+        """
+        send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+        admins = User.objects.filter(is_staff=True)
+        admin_email_list = [admin.email for admin in admins]
+        send_mail(subject, message, from_email, admin_email_list, fail_silently=False)
+
+    
+         
+        print("Query received")  
+
 # START OF COURSE MODEL
 class Course(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
@@ -184,7 +213,6 @@ class Query(models.Model):
     module = models.ForeignKey(Module, blank=True, null=True, on_delete=models.CASCADE)
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, blank=True, null=True, on_delete=models.CASCADE)
-    
 
     def __str__(self):
         return self.question_text
