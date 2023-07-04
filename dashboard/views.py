@@ -106,11 +106,11 @@ class QAForumPageView(LoginRequiredMixin, CreateView):
         context['title'] = 'QA Forum'
         # context['answer_form'] = AnswerForm()
         registration = Registration.objects.get(user=self.request.user)
+        room_name =   f'{self.request.user.id}_{self.request.user.username}'
         course = registration.course
         context['questries'] = Query.objects.filter(course=course)
-
+        context['room_name'] = room_name
         # Assuming you have an instance of the Query model called `query`
-        
         # Add more data to the context if needed
         return context
     

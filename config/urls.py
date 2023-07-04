@@ -23,5 +23,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("web.urls")),
     path("dashboard/", include("dashboard.urls")),
+    # path("chat/", include("chatbot.urls")),
     path("logout", LogoutView.as_view(), name="logout"),
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

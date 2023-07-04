@@ -1,0 +1,120 @@
+<!-- Recent Activity -->
+{% load static %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center p-3"
+        style="border-top: 4px solid #aaa;">
+        <h5 class="mb-0">Try Asking Me anything <span><img
+                    src="{% static 'web/assets/img/team/chatbot-2.png' %}" alt="avatar 1"
+                    class="rounded-circle" style="width: 45px; height: 100%;"></spn>
+        </h5>
+    </div>
+    
+    <div class="card-body perfect-scrollbar" style="padding:20px; margin:10px;position: relative; height: 400px; overflow-y: auto;">
+        <br>
+        <br>
+
+        <div id="chat-area">
+
+
+
+        </div>
+        <div class="ps__rail-x" style="left: 0px; bottom: -117px;">
+            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+        </div>
+        <div class="ps__rail-y" style="top: 117px; height: 400px; right: 0px;">
+            <div class="ps__thumb-y" tabindex="0" style="top: 91px; height: 309px;"></div>
+        </div>
+    </div>
+
+
+    <script>
+        // // Initialize Perfect Scrollbar
+        // const chatContainer = document.querySelector('.perfect-scrollbar');
+        // new PerfectScrollbar(chatContainer);
+    </script>
+    <div style="display:flex;flex-direction: column;"
+        class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
+
+        {% comment %} <textarea class="form-control" style="height: 111px;"></textarea> {% endcomment %}
+        <br>
+        <div class="input-group mb-0">
+            <input id="chat-message-input" type="text" class="form-control" placeholder="Type message"
+                aria-label="Recipient's username" aria-describedby="button-addon2">
+            <button class="btn btn-primary" type="button" id="chat-message-submit" style="padding-top: 0.55rem;">
+                Send
+                <i class="bx bxs-send"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+{{ room_name|json_script:"room-name" }}
+<script>
+    const roomName = JSON.parse(document.getElementById('room-name').textContent);
+
+    const chatSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/chat/'
+        + roomName
+        + '/'
+    );
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        // console.log(data + 'On message')
+        document.querySelector('#chat-area').innerHTML +=`
+          
+        <div class="d-flex flex-row justify-content-start" id="chat-log-response">
+            <img src="{% static 'web/assets/img/team/chatbot-2.png' %}" alt="avatar 1"
+                class="rounded-circle" style="width: 45px; height: 100%;">
+            <div>
+                <p class="small p-2 ms-3 mb-3 rounded-3" style="background-color: #f5f6f7;">${data.response}</p>
+            </div>
+        </div>
+
+        `;
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    document.querySelector('#chat-message-input').focus();
+    document.querySelector('#chat-message-input').onkeyup = function(e) {
+        if (e.key === 'Enter') {  // enter, return
+
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        const messageInputDom = document.querySelector('#chat-message-input');
+        const message = messageInputDom.value;
+        document.querySelector('#chat-area').innerHTML += 
+        ` 
+            <div class="d-flex flex-row justify-content-end mb-4 pt-1">
+                <div>
+                    <p class="small p-2 me-3 mb-3 text-white rounded-3 bg-primary"">${message}</p>
+                </div>
+                {% if user.profile_pic %}
+
+                <img src="{{user.profile_pic.url}}" alt="avatar 1" class="rounded-circle"
+                    style="width: 45px; height: 100%;">
+                {% else %}
+                <img src="{% static 'web/assets/img/team/chatbot-2.png' %}" alt="avatar 1"
+                    class="rounded-circle" style="width: 45px; height: 100%;">
+                {% endif %}
+            </div>    
+        `
+
+
+        // document.querySelector('#chat-log-response').innerText = message
+        chatSocket.send(JSON.stringify({
+            'message': message
+        }));
+        messageInputDom.value = '';
+    };
+</script>

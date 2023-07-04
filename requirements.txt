@@ -14,3 +14,9 @@ tzdata
 urllib3
 yarg
 whitenoise
+nltk
+numpy
+torch 
+torchvision 
+torchaudio
+channels[daphne]
