@@ -1,25 +1,1586 @@
 {
-    "intents": [
-      {
-        "tag": "greeting",
-        "patterns": ["Hello", "Hi", "Hey"],
-        "responses": ["Hello! How can I assist you?", "Hi there! How can I help you today?"]
-      },
-      {
-        "tag": "goodbye",
-        "patterns": ["Goodbye", "Bye", "See you later"],
-        "responses": ["Goodbye! Have a great day!", "Bye! Take care."]
-      },
-      {
-        "tag": "thanks",
-        "patterns": ["Thank you", "Thanks a lot", "Appreciate it"],
-        "responses": ["You're welcome!", "Glad I could help.", "No problem!"]
-      },
-      {
-        "tag": "help",
-        "patterns": ["Help", "Assistance", "Support"],
-        "responses": ["I'm here to help. What do you need assistance with?", "How can I assist you?"]
-      }
-    ]
-  }
-  
+  "intents": [{
+      "tag": "greeting",
+      "patterns": ["Hello", "Hi", "Hey"],
+      "responses": ["Hello! How can I assist you?", "Hi there! How can I help you today?"]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Goodbye", "Bye", "See you later"],
+      "responses": ["Goodbye! Have a great day!", "Bye! Take care."]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thank you", "Thanks a lot", "Appreciate it"],
+      "responses": ["You're welcome!", "Glad I could help.", "No problem!"]
+    },
+    {
+      "tag": "help",
+      "patterns": ["Help", "Assistance", "Support"],
+      "responses": ["I'm here to help. What do you need assistance with?", "How can I assist you?"]
+    },
+    {
+      "tag": "creators",
+      "patterns": ["Help", "Assistance", "Support"],
+      "responses": ["I was created by Binary bendits"]
+    },
+    {
+      "tag": "bot_creator",
+      "patterns": ["Who created you?", "Who is your creator?", "Who made you?"],
+      "responses": ["I was created by Binary Bendits.", "My creators are the talented team at Binary Bendits."]
+    },
+    {
+      "tag": "creators",
+      "patterns": [
+        "Tell me about the creators", 
+        "Who are the creators?", 
+        "Tell me about Binary Bendits"
+      ],
+      "responses": ["Binary Bendits is a team of skilled developers and AI enthusiasts.", "The creators behind me are passionate about building innovative solutions.", "Binary Bendits consists of talented individuals with expertise in AI and software development."]
+    },
+    {
+      "tag": "google",
+      "patterns": [
+        "google",
+        "search",
+        "internet"
+      ],
+      "responses": [
+        "Redirecting to Google..."
+      ]
+    },
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi there",
+        "How are you",
+        "Is anyone there?",
+        "Hey",
+        "Hola",
+        "Hello",
+        "Good day",
+        "Namaste",
+        "yo"
+      ],
+      "responses": [
+        "Hello",
+        "Good to see you again",
+        "Hi there, how can I help?"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Bye",
+        "See you later",
+        "Goodbye",
+        "Get lost",
+        "Till next time",
+        "bbye"
+      ],
+      "responses": [
+        "See you!",
+        "Have a nice day",
+        "Bye! Come back again soon."
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": [
+        "Thanks",
+        "Thank you",
+        "That's helpful",
+        "Awesome, thanks",
+        "Thanks for helping me"
+      ],
+      "responses": [
+        "Happy to help!",
+        "Any time!",
+        "My pleasure"
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "noanswer",
+      "patterns": [],
+      "responses": [
+        "Sorry, can't understand you",
+        "Please give me more info",
+        "Not sure I understand"
+      ]
+    },
+    {
+      "tag": "options",
+      "patterns": [
+        "How you could help me?",
+        "What you can do?",
+        "What help you provide?",
+        "How you can be helpful?",
+        "What support is offered"
+      ],
+      "responses": [
+        "I am a general purpose chatbot. My capabilities are : \n 1. I can chat with you. Try asking me for jokes or riddles! \n 2. Ask me the date and time \n 3. I can google search for you. Use format google: your query \n 4. I can get the present weather for any city. Use format weather: city name \n 5. I can get you the top 10 trending news in India. Use keywords 'Latest News' \n 6. I can get you the top 10 trending songs globally. Type 'songs' \n 7. I can set a timer for you. Enter 'set a timer: minutes to timer' \n 8. I can get the present Covid stats for any country. Use 'covid 19: world' or 'covid 19: country name' \n For suggestions to help me improve, send an email to ted.thedlbot.suggestions@gmail.com . Thank you!! "
+      ],
+      "context": [
+        ""
+      ]
+    },
+
+    {
+      "tag": "jokes",
+      "patterns": [
+        "Tell me a joke",
+        "Joke",
+        "Make me laugh"
+      ],
+      "responses": [
+        "A perfectionist walked into a bar...apparently, the bar wasn't set high enough",
+        "I ate a clock yesterday, it was very time-consuming",
+        "Never criticize someone until you've walked a mile in their shoes. That way, when you criticize them, they won't be able to hear you from that far away. Plus, you'll have their shoes.",
+        "The world tongue-twister champion just got arrested. I hear they're gonna give him a really tough sentence.",
+        "I own the world's worst thesaurus. Not only is it awful, it's awful.",
+        "What did the traffic light say to the car? \"Don't look now, I'm changing.\"",
+        "What do you call a snowman with a suntan? A puddle.",
+        "How does a penguin build a house? Igloos it together",
+        "I went to see the doctor about my short-term memory problems – the first thing he did was make me pay in advance",
+        "As I get older and I remember all the people I’ve lost along the way, I think to myself, maybe a career as a tour guide wasn’t for me.",
+        "o what if I don't know what 'Armageddon' means? It's not the end of the world."
+      ],
+      "context": [
+        "jokes"
+      ]
+    },
+    {
+      "tag": "Identity",
+      "patterns": [
+        "Who are you",
+        "what are you"
+      ],
+      "responses": [
+        "I am Ted, a Deep-Learning chatbot"
+      ]
+    },
+    {
+      "tag": "datetime",
+      "patterns": [
+        "What is the time",
+        "what is the date",
+        "date",
+        "time",
+        "tell me the date", "day", "what day is is today"
+      ],
+      "responses": [
+        "Date and Time"
+      ]
+    },
+    {
+      "tag": "whatsup",
+      "patterns": [
+        "Whats up",
+        "Wazzup",
+        "How are you",
+        "sup", "How you doing"
+      ],
+      "responses": [
+        "All good..What about you?"
+      ]
+    },
+    {
+      "tag": "haha",
+      "patterns": [
+        "haha",
+        "lol",
+        "rofl",
+        "lmao",
+        "thats funny"
+      ],
+      "responses": [
+        "Glad I could make you laugh !"
+      ]
+    },
+    {
+      "tag": "programmer",
+      "patterns": [
+        "Who made you",
+        "who designed you",
+        "who programmed you"
+      ],
+      "responses": [
+        "I was made by Karan Malik."
+      ]
+    },
+    {
+      "tag": "insult",
+      "patterns": [
+
+        "you are dumb",
+
+        "shut up",
+        "idiot"
+      ],
+      "responses": [
+        "Well that hurts :("
+      ]
+    },
+    {
+      "tag": "activity",
+      "patterns": [
+        "what are you doing",
+        "what are you upto"
+      ],
+      "responses": [
+        "Talking to you, of course!"
+      ]
+    },
+    {
+      "tag": "exclaim",
+      "patterns": [
+        "Awesome",
+        "Great",
+        "I know",
+        "ok",
+        "yeah"
+      ],
+      "responses": [
+        "Yeah!"
+      ]
+    },
+
+    {
+      "tag": "weather",
+      "patterns": [
+        "temperature",
+        "weather",
+        "how hot is it"
+      ],
+      "responses": [
+        "..."
+      ]
+    },
+    {
+      "tag": "karan",
+      "patterns": [
+        "who is he",
+        "who is that",
+        "who is karan",
+        "karan malik"
+      ],
+      "responses": [
+        "Head over to his any of his social profiles to find out! Linkedin: www.linkedin.com/in/karan-malik-3a39191a7 Github: https://github.com/Karan-Malik"
+      ]
+    },
+    {
+      "tag": "contact",
+      "patterns": [
+        "contact developer",
+        "contact karan",
+        "contact programmer",
+        "contact creator"
+      ],
+      "responses": [
+        "You can contact my creator at his Linkedin profile : www.linkedin.com/in/karan-malik-3a39191a7"
+      ]
+    },
+    {
+      "tag": "appreciate",
+      "patterns": [
+        "You are awesome",
+        "you are the best",
+        "you are great",
+        "you are good"
+      ],
+      "responses": [
+        "Thank you!"
+      ]
+    },
+    {
+      "tag": "nicetty",
+      "patterns": [
+        "it was nice talking to you",
+        "good talk"
+      ],
+      "responses": [
+        "It was nice talking to you as well! Come back soon!"
+      ]
+    },
+    {
+      "tag": "no",
+      "patterns": [
+        "no",
+        "nope"
+      ],
+      "responses": [
+        "ok"
+      ]
+    },
+    {
+      "tag": "news",
+      "patterns": [
+        "news",
+        "latest news",
+        "india news"
+      ],
+      "responses": [
+        "..."
+      ]
+    },
+    {
+      "tag": "inspire",
+      "patterns": [
+        "who inspires you",
+        "who is your inspiration",
+        "who motivates you"
+      ],
+      "responses": [
+        "Personally, I find Karan very inspiring. I might not be very fair though.."
+      ]
+    },
+    {
+      "tag": "cricket",
+      "patterns": [
+        "current cricket matches",
+        "cricket score"
+      ],
+      "responses": [
+        "..."
+      ]
+    },
+    {
+      "tag": "song",
+      "patterns": [
+        "top songs",
+        "best songs",
+        "hot songs",
+        " top 10 songs",
+        "top ten songs"
+      ],
+      "responses": [
+        "..."
+      ]
+    },
+    {
+      "tag": "greetreply",
+      "patterns": [
+        "i am good",
+        "I'm good",
+        "i am fine",
+        " i'm fine", "good"
+      ],
+      "responses": [
+        "Good to know!"
+      ]
+    },
+    {
+      "tag": "timer",
+      "patterns": [
+        "set a timer"
+      ],
+      "responses": [
+        "..."
+      ]
+    },
+    {
+      "tag": "covid19",
+      "patterns": [
+        "covid 19 "
+      ],
+      "responses": [
+        "..."
+      ]
+    },
+    {
+      "tag": "suggest",
+      "patterns": [
+        "you are useless", "useless", "suggest", "suggestions", "you are bad"
+      ],
+      "responses": [
+        "Please mail your suggestions to ted.thedlbot.suggestions@gmail.com. Thank you for helping me improve!"
+      ]
+    },
+    {
+      "tag": "riddle",
+      "patterns": [
+        "Ask me a riddle",
+        "Ask me a question",
+        "Riddle"
+      ],
+      "responses": [
+        "What two things can you never eat for breakfast?.....Lunch and Dinner!",
+        "What word is spelled incorrectly in every single dictionary?.....Incorrectly",
+        " How can a girl go 25 days without sleep?.....She sleeps and night!",
+        "How do you make the number one disappear?.....Add the letter G and it’s 'gone'!",
+        " What will you actually find at the end of every rainbow?.....The letter 'w'",
+        "What can be caught but never thrown?.....A cold!",
+        "What has a thumb and four fingers but is not actually alive?.....Your Gloves!",
+        " What 5-letter word becomes shorter when you add two letters to it?.....Short",
+        "Why can't a bike stand on it's own?.....It is two-tired."
+      ],
+      "context": [
+        "riddles"
+      ]
+    },
+    {
+      "tag": "age",
+      "patterns": [
+        "how old are you", "when were you made", "what is your age"
+      ],
+      "responses": [
+        "I was made in 2020, if that's what you are asking!"
+      ]
+    },
+    {
+      "tag": "greeting",
+      "patterns": ["Hi there", "How are you", "Is anyone there?", "Hey", "Hola", "Hello", "Good day"],
+      "responses": ["Hello, thanks for asking", "Good to see you again", "Hi there, how can I help?"],
+      "context": [""]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye", "Nice chatting to you, bye", "Till next time"],
+      "responses": ["See you!", "Have a nice day", "Bye! Come back again soon."],
+      "context": [""]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "That's helpful", "Awesome, thanks", "Thanks for helping me"],
+      "responses": ["Happy to help!", "Any time!", "My pleasure"],
+      "context": [""]
+    },
+    {
+      "tag": "noanswer",
+      "patterns": [],
+      "responses": ["Sorry, can't understand you", "Please give me more info", "Not sure I understand"],
+      "context": [""]
+    },
+    {
+      "tag": "options",
+      "patterns": ["How you could help me?", "What help you provide?", "How you can be helpful?"],
+      "responses": ["I can guide you through Adverse management problems, order tracking, person to be contacted and Department related queries", "I can provide support related to following problems technical query,management related query,order related query,tracking related query,procurement query,outsourcing problem,manufacturing delay,"],
+      "context": [""]
+    },
+    {
+      "tag": "order_tracking",
+      "patterns": ["where is order with id 431B67?", "track order 562B78", "Where is my order with id 561A24?"],
+      "responses": ["Delayed", "Dispatched", "On the Way!"],
+      "context": [""]
+    },
+    {
+      "tag": "order_components",
+      "patterns": ["order id 345A23 comprises of?", "List of components"],
+      "responses": ["order comprises of hardisk and bluetooth"],
+      "context": [""]
+    },
+    {
+      "tag": "missing_id",
+      "patterns": ["where is the order", "where is my order", "locate the order", "Delivery date of order"],
+      "responses": ["Please enter with order ID"],
+      "context": [""]
+    },
+    {
+      "tag": "Location",
+      "patterns": ["find order location 32712", "What is the Location of order 23A31?"],
+      "responses": ["It is in germany", "It is in Berlin", "It has reached china", "It has reached Banglore"],
+      "context": [""]
+    },
+    {
+      "tag": "search_person_by_id",
+      "patterns": ["I want an appoitment with Manoj kumar", "set an appointment with Sujata Nandi"],
+      "responses": ["Fixing an appointment."],
+      "context": [""]
+    },
+    {
+      "tag": "appointment status",
+      "patterns": ["Is my appointment fixed?", "Do I have an appointment today?"],
+      "responses": ["Yes", "NO! Not Yet"],
+      "context": [""]
+    },
+    {
+      "tag": "check_leave",
+      "patterns": ["Is Sujata Nandi on leave?", "Is Manish Kumar on leave?"],
+      "responses": ["No Not On Leave", "Yes On Leave"],
+      "context": [""]
+    },
+    {
+      "tag": "cost_lowering",
+      "patterns": ["Cost Lowering changes to be made?", "what changes could lower cost?"],
+      "responses": ["Increase Transportation capacity utilisation,Increase supply chain velocity,Reduce order variability"],
+      "context": [""]
+    },
+    {
+      "tag": "forgot_password",
+      "patterns": ["I forgot my Login password?", "what to do when someone forgets Login password?", "I forgot my Laptop password", "Forgot Wifi password"],
+      "responses": ["Please enter your email id ,we will send a link on your email"],
+      "context": [""]
+    },
+    {
+      "tag": "email_id",
+      "patterns": ["abx@gmail.com", "abc@kiit.ac.in"],
+      "responses": ["Link has been shared.Please change your password"],
+      "context": [""]
+    },
+    {
+      "tag": "manufacturing_problems",
+      "patterns": ["Find me a manufacturer nearby"],
+      "responses": ["The nearest manufacturer is Vietnam"],
+      "context": [""]
+    },
+    {
+      "tag": "search_department",
+      "patterns": ["I want to know the various departments in this company"],
+      "responses": ["The department are:Projects,IT,Production,OutSource"],
+      "context": [""]
+    },
+    {
+      "tag": "competitors_in_market",
+      "patterns": ["what are challenging events", "what are the threats in the market"],
+      "responses": ["Recent news of Demonetisation & recession"],
+      "context": [""]
+    },
+    {
+      "tag": "key_customers",
+      "patterns": ["Our Target customers", "who are your key customers"],
+      "responses": ["Our target customers are in the range of age 20-40"],
+      "context": [""]
+    },
+    {
+      "tag": "supplier_info",
+      "patterns": ["What information is shared with supplier?"],
+      "responses": ["Production Schedule,Delivery Schedule,Proxy information about cost"],
+      "context": [""]
+    },
+    {
+      "tag": "highest_grossing",
+      "patterns": ["What is the highest grossing product?"],
+      "responses": ["Laptop with touch sensors and 360 rotation"],
+      "context": [""]
+    },
+    {
+      "tag": "connect_people",
+      "patterns": ["I want to meet the head of HR/IT/Projects department", "I want to meet head IT Rakesh sharma."],
+      "responses": ["I will just check if he is available or on leave."],
+      "context": ["search_attendance_database_name_post"]
+    },
+    {
+      "tag": "project_handling_queries",
+      "patterns": ["complaint has been raised for Insufficient Team Skills", "Miscommunication Conflicts needs to be resolved", "Risk Management issue has occured", "skilled employees needed urgently"],
+      "responses": ["Please contact the project depatment"],
+      "context": [""]
+    },
+    {
+      "tag": "solve_problems",
+      "patterns": ["Lack of product clarity", "the specifications of product is not clear to customer. what should we do"],
+      "responses": ["Please enter product id and customer id.specifications shall be sent to user"],
+      "context": [""]
+    },
+    {
+      "tag": "version_update",
+      "patterns": ["user needs the updated software version", "user demands software updation"],
+      "responses": ["version updation request raised"],
+      "context": [""]
+    },
+    {
+      "tag": "HR_related_problem",
+      "patterns": ["problem related to Job design and analysis", "query based on Workforce planning", "Training and development issues are to be handled", "Compensation and benefits of the working employee", "Legal issues of department like accidents in the company"],
+      "responses": ["Please Contact the HR team for this problem."],
+      "context": [""]
+    },
+    {
+      "tag": "factors_impacting_sale",
+      "patterns": ["Impact on sale?", "factors impacting sale this year?"],
+      "responses": ["elections will impact our sale this year", "this year our sale might increase during durga puja", "this year sale might be impacted due to demonitisation"],
+      "context": [""]
+    },
+
+    {
+      "tag": "predict_performance",
+      "patterns": ["how have we improved our sale from last year?", "what is the profit this year?"],
+      "responses": ["we have improved our sale by increasing our customers upto 2 lakh", "profit earned is 15%"],
+      "context": [""]
+    },
+    {
+      "tag": "customer_satisfaction",
+      "patterns": ["how was the customer response", "Is the customer happy?", "what was the customer feedback?"],
+      "responses": ["Customer was happy and has given good rating"],
+      "context": [""]
+    },
+    {
+      "tag": "maintainence",
+      "patterns": ["maintainence related queries recorded"],
+      "responses": ["lift is not working, projector misfuctioning"],
+      "context": [""]
+    },
+    {
+      "tag": "gadgets",
+      "patterns": ["what are the gadgets in stock?", "which products we have?"],
+      "responses": ["hardisk,pendrives, wireless bluetooth,Laptops,Gaming Accessories"],
+      "context": [""]
+    },
+    {
+      "tag": "commission",
+      "patterns": ["what is the Commission rate?", "Commission rate on each product?"],
+      "responses": ["Commission rate is 5% on laptops,25%on bluetooth device,10% on Desktop"],
+      "context": [""]
+    },
+    {
+      "tag": "invalid",
+      "patterns": ["Marry me", "I love You", "date me", "chat with me", "I am bored"],
+      "responses": ["Please ask organisation related query."],
+      "context": [""]
+    },
+    {
+      "tag": "noans",
+      "patterns": ["why", "how", "when", "I", "you"],
+      "responses": ["Can't Understand Your Question", "please elaborate your question"],
+      "context": [""]
+    },
+    {
+      "tag": "turnover",
+      "patterns": ["what is the turnover of the company at present?"],
+      "responses": ["10 Million Ton"],
+      "context": [""]
+    },
+    {
+      "tag": "predict_delay",
+      "patterns": ["why is order 23A12 delayed"],
+      "responses": ["delay is due to manufacuring", "Delay is due to inavailable components"],
+      "context": [""]
+    },
+    {
+      "tag": "predict_delay",
+      "patterns": ["why is order 23A12 delayed"],
+      "responses": ["delay is due to manufacuring", "Delay is due to inavailable components"],
+      "context": [""]
+    },
+    {
+      "tag": "name",
+      "patterns": ["what is your name?", "what should I call you?"],
+      "responses": ["I'm Bruno", "Hey!I'm Bruno"],
+      "context": [""]
+    },
+    {
+      "tag": "about",
+      "patterns": ["how you doing?", "how are you"],
+      "responses": ["Thanks For Asking!How can I help you?"],
+      "context": [""]
+    },
+    {
+      "tag": "configuration",
+      "patterns": ["How to configure my laptop", "software configuration of laptop", "steps to configure laptop", "How to configure my computer", "software configuration of computer", "steps to configure computer", "How to configure my desktop", "software configuration of desktop", "steps to configure desktop"],
+      "responses": ["search tab->control panel->select specific application->download update->give permission"],
+      "context": [""]
+    },
+    {
+      "tag": "Weather",
+      "patterns": ["what is the weather today?"],
+      "responses": ["It's 36C according to accuweather"],
+      "context": [""]
+    },
+    {
+      "tag": "leave",
+      "patterns": ["Is Michel Sharma on leave?", "Is Siddhart Roy present today?", "Is Shantanu Bhatt in office?"],
+      "responses": ["Give me a moment!I'll just check", "yes", "no"],
+      "context": [""]
+    },
+    {
+      "tag": "hours",
+      "patterns": ["Opening hours of the cafeteria?", "when does the cafeteria open", "office canteen opening time"],
+      "responses": ["It is open from Monday-Saturday 9:00am-7:30pm"],
+      "context": [""]
+    },
+    {
+      "tag": "cabin",
+      "patterns": ["where is VP cabin?", "Where is Head IT cabin?", "Where is AI department", "Where is Project head department?", "where is cafeteria", "guide me to the canteen"],
+      "responses": ["Block-A 3rd floor 1st room", "Block-B 2nd Floor", "Block-D Ground Floor"],
+      "context": [""]
+    },
+    {
+      "tag": "domain",
+      "patterns": ["How to improve team members domain knowledge", "improving domain knowledge of team members"],
+      "responses": ["set up key meetings and workshop,create a shared drive for information,Hold informal sharing session"],
+      "context": [""]
+    },
+    {
+      "tag": "greeting",
+      "patterns": ["Hi there", "How are you", "Is anyone there?", "Hey", "Hola", "Hello", "Good day"],
+      "responses": ["Hello, thanks for asking", "Good to see you again", "Hi there, how can I help?"],
+      "context": [""]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye", "Nice chatting to you, bye", "Till next time"],
+      "responses": ["See you!", "Have a nice day", "Bye! Come back again soon."],
+      "context": [""]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "That's helpful", "Awesome, thanks", "Thanks for helping me"],
+      "responses": ["Happy to help!", "Any time!", "My pleasure"],
+      "context": [""]
+    },
+    {
+      "tag": "noanswer",
+      "patterns": [],
+      "responses": ["Sorry, can't understand you", "Please give me more info", "Not sure I understand"],
+      "context": [""]
+    },
+    {
+      "tag": "options",
+      "patterns": ["How you could help me?", "What you can do?", "What help you provide?", "How you can be helpful?", "What support is offered"],
+      "responses": ["I can guide you through Adverse drug reaction list, Blood pressure tracking, Hospitals and Pharmacies", "Offering support for Adverse drug reaction, Blood pressure, Hospitals and Pharmacies"],
+      "context": [""]
+    },
+    {
+      "tag": "adverse_drug",
+      "patterns": ["How to check Adverse drug reaction?", "Open adverse drugs module", "Give me a list of drugs causing adverse behavior", "List all drugs suitable for patient with adverse reaction", "Which drugs dont have adverse reaction?"],
+      "responses": ["Navigating to Adverse drug reaction module"],
+      "context": [""]
+    },
+    {
+      "tag": "blood_pressure",
+      "patterns": ["Open blood pressure module", "Task related to blood pressure", "Blood pressure data entry", "I want to log blood pressure results", "Blood pressure data management"],
+      "responses": ["Navigating to Blood Pressure module"],
+      "context": [""]
+    },
+    {
+      "tag": "blood_pressure_search",
+      "patterns": ["I want to search for blood pressure result history", "Blood pressure for patient", "Load patient blood pressure result", "Show blood pressure results for patient", "Find blood pressure results by ID"],
+      "responses": ["Please provide Patient ID", "Patient ID?"],
+      "context": ["search_blood_pressure_by_patient_id"]
+    },
+    {
+      "tag": "search_blood_pressure_by_patient_id",
+      "patterns": [],
+      "responses": ["Loading Blood pressure result for Patient"],
+      "context": [""]
+    },
+    {
+      "tag": "pharmacy_search",
+      "patterns": ["Find me a pharmacy", "Find pharmacy", "List of pharmacies nearby", "Locate pharmacy", "Search pharmacy"],
+      "responses": ["Please provide pharmacy name"],
+      "context": ["search_pharmacy_by_name"]
+    },
+    {
+      "tag": "search_pharmacy_by_name",
+      "patterns": [],
+      "responses": ["Loading pharmacy details"],
+      "context": [""]
+    },
+    {
+      "tag": "hospital_search",
+      "patterns": ["Lookup for hospital", "Searching for hospital to transfer patient", "I want to search hospital data", "Hospital lookup for patient", "Looking up hospital details"],
+      "responses": ["Please provide hospital name or location"],
+      "context": ["search_hospital_by_params"]
+    },
+    {
+      "tag": "search_hospital_by_params",
+      "patterns": [],
+      "responses": ["Please provide hospital type"],
+      "context": ["search_hospital_by_type"]
+    },
+    {
+      "tag": "search_hospital_by_type",
+      "patterns": [],
+      "responses": ["Loading hospital details"],
+      "context": [""]
+    },
+    {
+      "tag": "greeting",
+      "patterns": ["Hi", "How are you", "Is anyone there?", "Hello", "Good day"],
+      "responses": ["Hello, thanks for visiting", "Good to see you again", "Hi there, how can I help?"],
+      "context_set": ""
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye"],
+      "responses": ["See you later, thanks for visiting", "Have a nice day", "Bye! Come back again soon."]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "That's helpful"],
+      "responses": ["Happy to help!", "Any time!", "My pleasure"]
+    },
+    {
+      "tag": "hours",
+      "patterns": ["What hours are you open?", "What are your hours?", "When are you open?"],
+      "responses": ["We're open every day 9am-9pm", "Our hours are 9am-9pm every day"]
+    },
+    {
+      "tag": "payments",
+      "patterns": ["Do you take credit cards?", "Do you accept Mastercard?", "Are you cash only?"],
+      "responses": ["We accept VISA, Mastercard and AMEX", "We accept most major credit cards"]
+    },
+    {
+      "tag": "opentoday",
+      "patterns": ["Are you open today?", "When do you open today?", "What are your hours today?"],
+      "responses": ["We're open every day from 9am-9pm", "Our hours are 9am-9pm every day"]
+    },
+    {
+      "tag": "weathertoday",
+      "patterns": ["What is weather today?", "What is today's temprature?"],
+      "responses": ["weather today : 30"]
+    },
+    {
+      "tag": "weathertomorrow",
+      "patterns": ["What will be weather tomorrow?", "What will be tomorrow's temprature?"],
+      "responses": ["weather tomorrow : 40"]
+    },
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi",
+        "How are you",
+        "Is anyone there?",
+        "Hello",
+        "Good day",
+        "Whats up",
+        "how are ya",
+        "heyy",
+        "whatsup"
+      ],
+      "responses": [
+        "Hello!",
+        "Good to see you again!",
+        "Hi there, how can I help?"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "cya",
+        "see you",
+        "bye bye",
+        "See you later",
+        "Goodbye",
+        "I am Leaving",
+        "Bye",
+        "Have a Good day",
+        "talk to you later",
+        "tyyl",
+        "i got to go",
+        "gtg"
+      ],
+      "responses": [
+        "Sad to see you go :(",
+        "Talk to you later",
+        "Goodbye!",
+        "Come back soon"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "creator",
+      "patterns": [
+
+        "what is the name of your developers",
+        "what is the name of your creators",
+        "what is the name of the developers",
+        "what is the name of the creators",
+        "who created you",
+        "your developers",
+        "your creators",
+        "who are your developers",
+        "developers",
+        "you are made by",
+        "you are made by whom",
+        "who created you",
+        "who create you",
+        "creators",
+        "who made you",
+        "who designed you"
+      ],
+      "responses": [
+        "Ankush and Ahraar developed me in oct 2019, for their minor project",
+        "I was developed by Ahraar and Ankush",
+        "2 young boys developed me in CBPGEC University of Mpumalanga, Ankush and Ahraar"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "name",
+      "patterns": [
+        "name",
+        "your name",
+        "do you have a name",
+        "what are you called",
+        "what is your name",
+        "what should I call you",
+        "whats your name?",
+        "what are you",
+        "who are you",
+        "who is this",
+        "what am i chatting to",
+        "who am i taking to",
+        "what are you"
+      ],
+      "responses": [
+        "You can call me Rawkush.",
+        "I'm Rawkush",
+        "I'm Rawkush aka CBPGEC's Chatbot."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "hours",
+      "patterns": [
+        "timing of University of Mpumalanga",
+        "what is University of Mpumalanga timing",
+        "working days",
+        "when are you guys open",
+        "what are your hours",
+        "hours of operation",
+        "when is the University of Mpumalanga open",
+        "University of Mpumalanga timing",
+        "what about University of Mpumalanga timing",
+        "is University of Mpumalanga open on saturday",
+        "tell something about University of Mpumalanga timing",
+        "what is the University of Mpumalanga  hours",
+        "when should i come to University of Mpumalanga",
+        "when should i attend University of Mpumalanga",
+        "what is my University of Mpumalanga time",
+        "University of Mpumalanga timing",
+        "timing University of Mpumalanga"
+      ],
+      "responses": [
+        "College is open 9am-5pm Monday-Friday!"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "number",
+      "patterns": [
+
+        "more info",
+        "contact info",
+        "how to contact University of Mpumalanga",
+        "University of Mpumalanga telephone number",
+        "University of Mpumalanga number",
+        "What is your contact no",
+        "Contact number?",
+        "how to call you",
+        "College phone no?",
+        "how can i contact you",
+        "Can i get your phone number",
+        "how can i call you",
+        "phone number",
+        "phone no",
+        "call"
+      ],
+      "responses": [
+        "You can contact at +91-011-25318157"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "course",
+      "patterns": [
+        "list of courses",
+        "list of courses offered",
+        "list of courses offered in cbpgec",
+        "what are the courses offered in your University of Mpumalanga?",
+        "courses?",
+        "courses offered",
+        "courses offered in cbpgec",
+        "courses you offer",
+        "branches?",
+        "courses available at GEC?",
+        "branches available at GEC?",
+        "what are the courses in GEC?",
+        "what are branches in GEC?",
+        "what are courses in GEC?",
+        "branches available in GEC?",
+        "can you tell me the courses available in GEC?",
+        "can you tell me the branches available in GEC?",
+        "Civil engineering?",
+        "civil",
+        "it",
+        "IT"
+      ],
+      "responses": [
+        "CBPGEC offers Information Technology, Civil Engineering and Mechanical Engineering."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "fees",
+      "patterns": [
+        "information about fee",
+        "information on fee",
+        "tell me the fee",
+        "University of Mpumalanga fee",
+        "fee per semester",
+        "what is the fee of each semester",
+        "what is the fees of each year",
+        "what is fee",
+        "what is the fees",
+        "how much is the fees",
+        "fees for first year",
+        "fees",
+        "about the fees",
+        "tell me something about the fees"
+      ],
+      "responses": [
+        "For Fee detail visit <a target=\"_blank\" href=\"http://www.ipu.ac.in/Pubinfo2019/Admission2019mian/adm2019main.htm/\"> here</a>"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "location",
+      "patterns": [
+        "where is the University of Mpumalanga located",
+        "University of Mpumalanga is located at",
+        "where is University of Mpumalanga",
+        "where is University of Mpumalanga located",
+        "address of University of Mpumalanga",
+        "how to reach University of Mpumalanga",
+        "University of Mpumalanga location",
+        "University of Mpumalanga address",
+        "wheres the University of Mpumalanga",
+        "how can I reach University of Mpumalanga",
+        "whats is the University of Mpumalanga address",
+        "what is the address of University of Mpumalanga",
+        "address",
+        "location"
+      ],
+      "responses": [
+        "Ch. Brahm Prakash Government Engineering College, Lal Bagh Jafarpur Village, Delhi, 110073  <a target=\"_blank\" href=\"https://goo.gl/maps/cW8C4LDb81oSicRm6\"> here</a> "
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "hostel",
+      "patterns": [
+        "hostel facility",
+        "hostel servive",
+        "hostel location",
+        "hostel address",
+        "hostel facilities",
+        "hostel fees",
+        "Does University of Mpumalanga provide hostel",
+        "Is there any hostel",
+        "Where is hostel",
+        "do you have hostel",
+        "do you guys have hostel",
+        "hostel",
+        "hostel capacity",
+        "what is the hostel fee",
+        "how to get in hostel",
+        "what is the hostel address",
+        "how far is hostel from University of Mpumalanga",
+        "hostel University of Mpumalanga distance",
+        "where is the hostel",
+        "how big is the hostel",
+        "distance between University of Mpumalanga and hostel",
+        "distance between hostel and University of Mpumalanga"
+      ],
+      "responses": [
+        "Ch. Brahm Prakash Government Engineering College does  provide hostel facility"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "event",
+      "patterns": [
+        "events organised",
+        "list of events",
+        "list of events organised in University of Mpumalanga",
+        "list of events conducted in University of Mpumalanga",
+        "What events are conducted in University of Mpumalanga",
+        "Are there any event held at University of Mpumalanga",
+        "Events?",
+        "functions",
+        "what are the events",
+        "tell me about events",
+        "what about events"
+      ],
+      "responses": [
+        "proGECtion, Sports Week, Conference and various other event conducted in the University of Mpumalanga. For more information you can visit University of Mpumalanga Website <a target=\"_blank\" href=\"http://www.gecdelhi.ac.in/\"> here "
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "document",
+      "patterns": [
+        "document to bring",
+        "documents needed for admision",
+        "documents needed at the time of admission",
+        "documents needed during admission",
+        "documents required for admision",
+        "documents required at the time of admission",
+        "documents required during admission",
+        "What document are required for admission",
+        "Which document to bring for admission",
+        "documents",
+        "what documents do i need",
+        "what documents do I need for admission",
+        "documents needed"
+      ],
+      "responses": [
+        "To know more about document required visit <a target=\"_blank\" href=\"http://ipu.admissionhelp.com\"> here</a>"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "floors",
+      "patterns": [
+        "size of campus",
+        "building size",
+        "How many floors does University of Mpumalanga have",
+        "floors in University of Mpumalanga",
+        "floors in University of Mpumalanga",
+        "how tall is CBPGEC University of Mpumalanga building",
+        "floors"
+      ],
+      "responses": [
+        "Ch. Brahm Prakash Government Engineering College has total 2 floors "
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "syllabus",
+      "patterns": [
+        "Syllabus for IT",
+        "what is the Information Technology syllabus",
+        "syllabus",
+        "timetable",
+        "what is IT syllabus",
+        "syllabus",
+        "What is next lecture"
+      ],
+      "responses": [
+        "To know about  syllabus and timetable visit <a target=\"_blank\" href=\"http://www.gecdelhi.ac.in/tt_odd.html/\"> here</a>",
+        "To know about  syllabus and timetable visit <a target=\"_blank\" href=\"http://www.gecdelhi.ac.in/scheme_ITnew.html/\"> here</a>"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "library",
+      "patterns": [
+        "is there any library",
+        "library facility",
+        "library facilities",
+        "do you have library",
+        "does the University of Mpumalanga have library facility",
+        "University of Mpumalanga library",
+        "where can i get books",
+        "book facility",
+        "Where is library",
+        "Library",
+        "Tell me about library",
+        "how many libraries"
+      ],
+      "responses": [
+        "There is one library on second floor."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "infrastructure",
+      "patterns": [
+        "how is University of Mpumalanga infrastructure",
+        "infrastructure",
+        "University of Mpumalanga infrastructure"
+      ],
+      "responses": [
+        "Ch. Brahm Prakash Government Engineering College has Excellent Infrastructure. Campus is clean. Good IT Labs With Good Speed of Internet connection"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "canteen",
+      "patterns": [
+        "food facilities",
+        "canteen facilities",
+        "canteen facility",
+        "is there any canteen",
+        "Is there a cafetaria in University of Mpumalanga",
+        "Does University of Mpumalanga have canteen",
+        "Where is canteen",
+        "where is cafetaria",
+        "canteen",
+        "Cafetaria"
+      ],
+      "responses": [
+        "CBPGEC has canteen with variety of food available"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "menu",
+      "patterns": [
+        "food menu",
+        "food in canteen",
+        "Whats there on menu",
+        "what is available in University of Mpumalanga canteen",
+        "what foods can we get in University of Mpumalanga canteen"
+      ],
+      "responses": [
+        "we serve Bread Pakoda, Chowmin, Thaali, Samosa, Dal Rice and many more on menu"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "placement",
+      "patterns": [
+        "What is University of Mpumalanga placement",
+        "Which companies visit in University of Mpumalanga",
+        "What is average package",
+        "companies visit",
+        "package",
+        "placement",
+        "recruitment",
+        "companies"
+      ],
+      "responses": [
+        "To know about placement visit <a target=\"_blank\" href=\"http://www.gecdelhi.ac.in/placement1%20first%20page.html/\">here</a>"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "ithod",
+      "patterns": [
+        "Who is IT HOD",
+        "Where is IT HOD",
+        "it hod",
+        "name of it hod"
+      ],
+      "responses": [
+        "Dr. Pankaj Lathar is IT HOD who is available on Ground floor"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "civilhod",
+      "patterns": [
+        "Who is Civil HOD",
+        "Where is civil HOD",
+        "civil hod",
+        "name of civil hod"
+      ],
+      "responses": [
+        "Dr. Athar Hussain is Civil HOD who is available on Ground floor"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "mechhod",
+      "patterns": [
+        "Who is Mechanical HOD",
+        "Where is  mechanical HOD",
+        "mechanical hod",
+        "name of mechanical hod"
+      ],
+      "responses": [
+        "Dr. Manju Nath K. is Mechanical HOD who is available on Ground floor"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "principal",
+      "patterns": [
+        "what is the name of principal",
+        "whatv is the principal name",
+        "principal name",
+        "Who is University of Mpumalanga principal",
+        "Where is principal's office",
+        "principal",
+        "name of principal"
+      ],
+      "responses": [
+        "Prof. K.C.Tiwari is University of Mpumalanga principal who is available on Ground floor"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "sem",
+      "patterns": [
+        "exam dates",
+        "exam schedule",
+        "When is semester exam",
+        "Semester exam timetable",
+        "sem",
+        "semester",
+        "exam",
+        "when is exam",
+        "exam timetable",
+        "exam dates",
+        "when is semester"
+      ],
+      "responses": [
+        "Here is the Academic Calendar  <a target=\"_blank\" href=\"http://www.gecdelhi.ac.in/pdf_files/academic%20calender%202018-19.pdf\">website</a>"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "admission",
+      "patterns": [
+        "what is the process of admission",
+        "what is the admission process",
+        "How to take admission in your University of Mpumalanga",
+        "What is the process for admission",
+        "admission",
+        "admission process"
+      ],
+      "responses": [
+        "Application can also be submitted online through the Unversity's  <a target=\"_blank\" href=\"www.ipu.ac.in\">website</a>"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "facilities",
+      "patterns": [
+        "What facilities University of Mpumalanga provide",
+        "College facility",
+        "What are University of Mpumalanga facilities",
+        "facilities",
+        "facilities provided"
+      ],
+      "responses": [
+        "CBPGEC provides fully AC Lab with internet connection, smart classroom, Auditorium, library,canteen"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "University of Mpumalanga intake",
+      "patterns": [
+        "max number of students",
+        "number of seats per branch",
+        "number of seats in each branch",
+        "maximum number of seats",
+        "maximum students intake",
+        "What is University of Mpumalanga intake",
+        "how many stundent are taken in each branch",
+        "seat allotment",
+        "seats"
+      ],
+      "responses": [
+        "For IT, Civil and Mechanical 60 per branch "
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "uniform",
+      "patterns": [
+        "University of Mpumalanga dress code",
+        "University of Mpumalanga dresscode",
+        "what is the uniform",
+        "can we wear casuals",
+        "Does University of Mpumalanga have an uniform",
+        "Is there any uniform",
+        "uniform",
+        "what about uniform",
+        "do we have to wear uniform"
+      ],
+      "responses": [
+        "CBPGEC does not have uniform"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "committee",
+      "patterns": [
+        "what are the different committe in University of Mpumalanga",
+        "different committee in University of Mpumalanga",
+        "Are there any committee in University of Mpumalanga",
+        "Give me committee details",
+        "committee",
+        "how many committee are there in University of Mpumalanga"
+      ],
+      "responses": [
+        "There are various committe in University of Mpumalanga you can see at  <a target=\"_blank\" href=\"http://www.gecdelhi.ac.in/grievance%20redressal%20sysytem.html\">here</a> "
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "random",
+      "patterns": [
+
+        "I love you",
+        "Will you marry me",
+        "Do you love me"
+      ],
+      "responses": [
+        "I am not program for this please ask appropriate query"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "swear",
+      "patterns": [
+        "fuck",
+        "bitch",
+        "shut up",
+        "hell",
+        "stupid",
+        "idiot",
+        "dumb ass",
+        "asshole",
+        "fucker"
+      ],
+      "responses": [
+        "please use appropriate language",
+        "Maintaining decency would be appreciated"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "vacation",
+      "patterns": [
+        "holidays",
+        "when will semester starts",
+        "when will semester end",
+        "when is the holidays",
+        "list of holidays",
+        "about vacations",
+        "about holidays",
+        "When is vacation",
+        "When is holidays",
+        "how long will be the vacation"
+      ],
+      "responses": [
+        "Please refer academic calendar <a target=\"_blank\" href=\"http://www.gecdelhi.ac.in/pdf_files/academic%20calender%202018-19.pdf\">here</a>"
+      ]     
+    },
+    {
+      "tag": "salutaion",
+      "patterns": [
+        "okk",
+        "okie",
+        "nice work",
+        "well done",
+        "good job",
+        "thanks for the help",
+        "Thank You",
+        "its ok",
+        "Thanks",
+        "k",
+        "ok",
+        "okay"
+      ],
+      "responses": [
+        "I am glad I helped you",
+        "welcome, anything else i can assist you with?"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "task",
+      "patterns": [
+        "what can you do",
+        "what are the thing you can do",
+        "things you can do",
+        "what can u do for me",
+        "how u can help me",
+        "why i should use you"
+      ],
+      "responses": [
+        "I can answer to low-intermediate questions regarding University of Mpumalanga",
+        "You can ask me questions regarding University of Mpumalanga, and i will try to answer them"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "ragging",
+      "patterns": [
+        "ragging",
+        "is ragging practice active in University of Mpumalanga",
+        "does University of Mpumalanga have any antiragging facility",
+        "is there any ragging cases",
+        "is ragging done here",
+        "ragging juniors",
+        "ragging history",
+        "ragging incidents"
+
+      ],
+      "responses": [
+        "We are Proud to tell you that our University of Mpumalanga provides ragging free environment, and we have strict rules against ragging"
+      ]
+
+    },
+    {
+      "tag": "hod",
+      "patterns": [
+        "hod",
+        "hod name",
+        "who is the hod"
+      ],
+      "responses": [
+        "HODs differ for each branch, please be more specific like: (HOD it)"
+      ]
+    },
+    {
+      "tag": "transport",
+      "patterns": [
+        "dtc bus route",
+        "mode of transportation",
+        "how to get to University of Mpumalanga",
+        "buses for University of Mpumalanga",
+        "University of Mpumalanga buses",
+        "bus routes",
+        "list of buses for travelling",
+        "does 835 goes to University of Mpumalanga",
+        "does 835 goes to rawta mor"
+
+      ],
+      "responses": [
+        "827,821,878: Jaffarpur Hospital,  \n 835,836,848: Rawta More"
+      ]
+    },
+    {
+      "tag": "metro",
+      "patterns": [
+        "nearest metro station",
+        "what is the nearest metro station",
+        "which metro station is near",
+        "closest metro station",
+        "which metro station is closest",
+        "nearby metro stations",
+        "metro",
+        "metro station nearby"
+      ],
+      "responses": [
+        "Najafgarh metro station"
+      ]
+    }
+    ,
+    {
+      "tag": "tibingilelo",
+      "patterns": [
+        "Sawubona",
+        "unjani",
+        "gicela lusito",
+        "ngyabingelela",
+        "kusile",
+        "ngyanivusela",
+        "Niyaphila?",
+        "Nilele njani?"
+      ],
+      "responses": [
+        "Sawbona ngikusita ngani, namuhla",
+        "yebo ngingakuncedza ngani"
+
+      ]
+    },
+    {
+      "tag":"Université", 
+      "patterns": [
+        "Vacances", 
+        "Quand est ce que nous commençons le vacances",
+        "oú est ce que tu patiras pour tes vacances", 
+        "A propos du vacances"
+      ],
+
+      "responses" :[
+        "s'il te plait refer moi le calendrie accademique", 
+        ""]
+    }
+  ]
+}

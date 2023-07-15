@@ -35,7 +35,7 @@
     <div style="display:flex;flex-direction: column;"
         class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
 
-        {% comment %} <textarea class="form-control" style="height: 111px;"></textarea> {% endcomment %}
+        <textarea class="form-control" style="height: 111px;"></textarea>
         <br>
         <div class="input-group mb-0">
             <input id="chat-message-input" type="text" class="form-control" placeholder="Type message"
@@ -76,6 +76,10 @@
         </div>
 
         `;
+
+          // Scroll to the bottom of the chat area
+            chatArea.scrollTop = chatArea.scrollHeight;
+
     };
 
     chatSocket.onclose = function(e) {
@@ -89,32 +93,45 @@
             document.querySelector('#chat-message-submit').click();
         }
     };
-
     document.querySelector('#chat-message-submit').onclick = function(e) {
-        const messageInputDom = document.querySelector('#chat-message-input');
-        const message = messageInputDom.value;
-        document.querySelector('#chat-area').innerHTML += 
-        ` 
-            <div class="d-flex flex-row justify-content-end mb-4 pt-1">
-                <div>
-                    <p class="small p-2 me-3 mb-3 text-white rounded-3 bg-primary"">${message}</p>
-                </div>
-                {% if user.profile_pic %}
+  const messageInputDom = document.querySelector('#chat-message-input');
+  const message = messageInputDom.value;
 
-                <img src="{{user.profile_pic.url}}" alt="avatar 1" class="rounded-circle"
-                    style="width: 45px; height: 100%;">
-                {% else %}
-                <img src="{% static 'web/assets/img/team/chatbot-2.png' %}" alt="avatar 1"
-                    class="rounded-circle" style="width: 45px; height: 100%;">
-                {% endif %}
-            </div>    
-        `
+  // Create a new chat message element
+  const chatMessage = document.createElement('div');
+  chatMessage.classList.add('chat-message');
+  chatMessage.innerHTML = `
+    <div class="d-flex flex-row justify-content-end mb-4 pt-1">
+      <div>
+        <p class="small p-2 me-3 mb-3 text-white rounded-3 bg-primary">${message}</p>
+      </div>
+      {% if user.profile_pic %}
+      <img src="{{user.profile_pic.url}}" alt="avatar 1" class="rounded-circle" style="width: 45px; height: 100%;">
+      {% else %}
+      <img src="{% static 'web/assets/img/team/chatbot-2.png' %}" alt="avatar 1" class="rounded-circle" style="width: 45px; height: 100%;">
+      {% endif %}
+    </div>
+  `;
+
+  // Append the new chat message to the chat area
+  const chatArea = document.querySelector('#chat-area');
+  chatArea.appendChild(chatMessage);
+
+   // Scroll to the bottom of the chat area
+   chatArea.scrollTop = chatArea.scrollHeight;
+
+// Send the chat message via WebSocket
+chatSocket.send(JSON.stringify({
+  'message': message
+}));
+
+// Clear the input field
+messageInputDom.value = '';
+
+// Scroll down to the latest chat message
+chatArea.scrollTop = chatArea.scrollHeight;
 
 
-        // document.querySelector('#chat-log-response').innerText = message
-        chatSocket.send(JSON.stringify({
-            'message': message
-        }));
-        messageInputDom.value = '';
-    };
+};
+
 </script>

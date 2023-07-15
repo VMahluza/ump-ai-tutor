@@ -159,11 +159,7 @@ class TutorSignUpForm(UserCreationForm):
         for field in self.fields:
             new_data = {
                 
-                "class": 'form-control',
-                # "hx-post": ".",
-                # "hx-trigger": "keyup changed delay:500ms",
-                # "hx-target": "#recipe-container",
-                # "hx-swap": "outerHTML"
+                "class": 'form-control'
             }
             self.fields[str(field)].widget.attrs.update(
                 new_data

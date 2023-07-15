@@ -20,3 +20,4 @@ torch
 torchvision 
 torchaudio
 channels[daphne]
+python-dotenv

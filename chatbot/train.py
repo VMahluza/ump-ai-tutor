@@ -13,7 +13,7 @@ import json
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
-from .chatmodel import NeuralNet
+from chatmodel import NeuralNet
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 import numpy as np
@@ -35,7 +35,6 @@ for intent in intents['intents']:
         all_words.extend(words_per_pattern)
         xy_word_patterns_associate_tags.append((words_per_pattern, tag))
 
-ignore_words = ['?', '!', ',', '<', '>', '<p>', '</p>']
 
 all_words = []
 tags = []
@@ -54,7 +53,8 @@ for intent in intents['intents']:
         xy.append((w, tag))
 
 # stem and lower each word
-ignore_words = ['?', '.', '!']
+ignore_words = ['?', '!', ',', '<', '>', '<p>', '</p>']
+ignore_words.extend(['?', '.', '!'])
 all_words = [stem(w) for w in all_words if w not in ignore_words]
 # remove duplicates and sort
 all_words = sorted(set(all_words))

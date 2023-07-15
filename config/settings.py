@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,8 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-&$yzvqne(nc177sm)uniacct#!d+t*j5bd8fk#3r1n(n!qpu51"
-
+SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -86,15 +87,15 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    },
-#   'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'd6dqj66p4bs7eb',
-#         'USER': 'hkngkvjdkzhytx',
-#         'PASSWORD': '81e6211c543fe02f7aaca0ff62c684a28519e74dbe6762ccf2c40bddf6d41ede',
-#         'HOST': 'ec2-34-236-103-63.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#     }
+    }
+    # 'default': {
+    #         'ENGINE': os.getenv('DATABASE_ENGINE'),
+    #         'NAME': os.getenv('DATABASE_NAME'),
+    #         'USER': os.getenv('DATABASE_USER'),
+    #         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+    #         'HOST': os.getenv('DATABASE_HOST'),
+    #         'PORT': os.getenv('DATABASE_PORT'),
+    #     }
 }
 
 
@@ -154,12 +155,12 @@ AUTH_GROUP_CHOICES = (
 )
 
 # settings.py
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'binarybendits@gmail.com'
-EMAIL_HOST_PASSWORD = 'fvxtkwbmnxogrytf'
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS') == 'True'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 ASGI_APPLICATION = "config.asgi.application"
 
