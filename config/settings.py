@@ -58,6 +58,9 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
+CSRF_TRUSTED_ORIGINS = ['ump-ai-tutor-production.up.railway.app']
+
+
 ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
