@@ -32,7 +32,7 @@ def broadcast_logged_ticket_success(sender, instance, created, **kwargs):
             We have received your ticket and our team members are actively working on it. Please be patient while we address your query.
             
             You can revisit the following link for updates and further information:
-            https://ump-ai-tutor-68e7ae10f930.herokuapp.com/
+            https://ump-ai-tutor-production.up.railway.app/
 
             Reference Number: #{instance.id}
 
@@ -50,7 +50,7 @@ def broadcast_logged_ticket_success(sender, instance, created, **kwargs):
             Reference Number: #{instance.id}
             
             Please visit the admin panel to attend to this ticket:
-            https://ump-ai-tutor-68e7ae10f930.herokuapp.com/admin
+            https://ump-ai-tutor-production.up.railway.app/admin
             
             Thank you for your attention.
             
@@ -267,7 +267,7 @@ def broadcast_question_to_everyone(sender, instance, created, **kwargs):
         The question bellow was asked 
         {instance.question_text}
         if you wish to respond to the question please visit the our site 
-        https://ump-ai-tutor-68e7ae10f930.herokuapp.com/
+        https://ump-ai-tutor-production.up.railway.app/
         """
         send_mail(subject, message, from_email, recipient_list, fail_silently=False)
          
