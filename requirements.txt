@@ -1,12 +1,15 @@
+Django==4.1.5
+nltk==3.7
+numpy==1.23.5
+python-dotenv==1.0.0
+torch==1.12.1
 asgiref
 certifi
 psycopg2
-charset-normalizer
-Django 
+charset-normalizer 
 docopt
 idna
 Pillow
-pipreqs
 requests
 sqlparse 
 gunicorn
@@ -14,8 +17,4 @@ tzdata
 urllib3
 yarg
 whitenoise
-nltk
-numpy
 channels[daphne]
-python-dotenv
-torch
