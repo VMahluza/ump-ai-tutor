@@ -18,3 +18,4 @@ nltk
 numpy
 channels[daphne]
 python-dotenv
+torch

@@ -1,1 +1,1 @@
-web: daphne config.asgi:application -b 0.0.0.0 -p $PORT
+web: gunicorn config.asgi:application
