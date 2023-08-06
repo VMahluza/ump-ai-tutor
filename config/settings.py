@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -84,10 +84,10 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    },
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": BASE_DIR / "db.sqlite3",
+    # },
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'aitutordb',
@@ -96,14 +96,14 @@ DATABASES = {
     #     'HOST':'localhost',
     #     'PORT':'3306',
     # }
-    # 'default': {
-    #         'ENGINE': os.getenv('DATABASE_ENGINE'),
-    #         'NAME': os.getenv('DATABASE_NAME'),
-    #         'USER': os.getenv('DATABASE_USER'),
-    #         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-    #         'HOST': os.getenv('DATABASE_HOST'),
-    #         'PORT': os.getenv('DATABASE_PORT'),
-    #     }
+    'default': {
+            'ENGINE': os.getenv('DATABASE_ENGINE'),
+            'NAME': os.getenv('DATABASE_NAME'),
+            'USER': os.getenv('DATABASE_USER'),
+            'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+            'HOST': os.getenv('DATABASE_HOST'),
+            'PORT': os.getenv('DATABASE_PORT'),
+        }
 }
 
 
