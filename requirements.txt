@@ -18,3 +18,4 @@ urllib3
 yarg
 whitenoise
 channels[daphne]
+channels_redis
