@@ -84,10 +84,10 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 
 DATABASES = {
-     "default": {
-         "ENGINE": "django.db.backends.sqlite3",
-         "NAME": BASE_DIR / "db.sqlite3",
-     },
+    #  "default": {
+    #      "ENGINE": "django.db.backends.sqlite3",
+    #      "NAME": BASE_DIR / "db.sqlite3",
+    #  },
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'aitutordb',
@@ -96,14 +96,14 @@ DATABASES = {
     #     'HOST':'localhost',
     #     'PORT':'3306',
     # }
-    # 'default': {
-    #         'ENGINE': os.getenv('DATABASE_ENGINE'),
-    #         'NAME': os.getenv('DATABASE_NAME'),
-    #         'USER': os.getenv('DATABASE_USER'),
-    #         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-    #         'HOST': os.getenv('DATABASE_HOST'),
-    #         'PORT': os.getenv('DATABASE_PORT'),
-    #     }
+    'default': {
+            'ENGINE': os.getenv('DATABASE_ENGINE'),
+            'NAME': os.getenv('DATABASE_NAME'),
+            'USER': os.getenv('DATABASE_USER'),
+            'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+            'HOST': os.getenv('DATABASE_HOST'),
+            'PORT': os.getenv('DATABASE_PORT'),
+        }
 }
 
 
