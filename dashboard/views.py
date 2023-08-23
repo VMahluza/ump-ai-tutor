@@ -2,6 +2,7 @@ from django.views.generic import TemplateView, View
 from .models import AuthKeys
 from django.shortcuts import redirect
 import uuid
+import subprocess
 from .models import Registration, Answer, User
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
@@ -40,8 +41,6 @@ class HomeDashboardPageView(LoginRequiredMixin, TemplateView):
         context['lecture_count'] = Lecture.lecture.count()
         context['top_queries'] = Query.objects.order_by('-votes')[:6]
         context['current_time'] = str(datetime.datetime.now())
-
-        # Add more data to the context if needed
         return context
 # Create your views here.
 

@@ -54,13 +54,13 @@ class StudentSignUpForm(UserCreationForm):
     password1 = forms.CharField(
         required=True, 
         label="Password",  
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Enter your password"})
+        widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "Enter your password"})
     )
 
     password2 = forms.CharField(
         required=True, 
         label="Password",  
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Confirm your password"})
+        widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "Confirm your password"})
     )
     
     # required_css_class = 'form-outline mb-4'

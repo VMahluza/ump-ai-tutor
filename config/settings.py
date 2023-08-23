@@ -84,10 +84,10 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 
 DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # },
+     "default": {
+         "ENGINE": "django.db.backends.sqlite3",
+         "NAME": BASE_DIR / "db.sqlite3",
+     },
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'aitutordb',
@@ -96,14 +96,14 @@ DATABASES = {
     #     'HOST':'localhost',
     #     'PORT':'3306',
     # }
-    'default': {
-            'ENGINE': os.getenv('DATABASE_ENGINE'),
-            'NAME': os.getenv('DATABASE_NAME'),
-            'USER': os.getenv('DATABASE_USER'),
-            'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-            'HOST': os.getenv('DATABASE_HOST'),
-            'PORT': os.getenv('DATABASE_PORT'),
-        }
+    # 'default': {
+    #         'ENGINE': os.getenv('DATABASE_ENGINE'),
+    #         'NAME': os.getenv('DATABASE_NAME'),
+    #         'USER': os.getenv('DATABASE_USER'),
+    #         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+    #         'HOST': os.getenv('DATABASE_HOST'),
+    #         'PORT': os.getenv('DATABASE_PORT'),
+    #     }
 }
 
 
@@ -133,14 +133,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "static",'media')
+MEDIA_URL = 'static/media/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
@@ -178,3 +178,4 @@ ASGI_APPLICATION = "config.asgi.application"
 #         },
 #     },
 # }
+

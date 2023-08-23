@@ -82,8 +82,8 @@ class Module(models.Model):
         return self.name
 # ./END OF MODULE MODEL
 
-
-
+def user_directory_path(instance, filename):
+    return 'images/user_profile_pictures/{0}/{1}'.format(instance.id, filename)
 
 # Create your models here.
 # START OF USER MODEL
@@ -97,9 +97,7 @@ class User(AbstractUser):
         MALE = "MALE", "Male"
         FEMALE = "FEMALE", "Female"
     auth_key = models.CharField(unique=True, null=True, blank=True,max_length=9)
-
-    profile_pic = models.ImageField(upload_to='images/user_profile_pictures/', null=True, blank=True)
-
+    profile_pic = models.ImageField(upload_to=user_directory_path, null=True, blank=True)
     base_role = Role.ADMIN
     role = models.CharField(max_length=50, choices=Role.choices)
     groups = models.ManyToManyField(
