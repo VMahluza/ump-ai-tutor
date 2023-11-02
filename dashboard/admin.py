@@ -1,8 +1,11 @@
 from django.contrib import admin
 from .models import *
 
-# Register your models here.
-admin.site.register(User)
+admin.site.site_url = "/dashboard/"  
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'email', 'is_active', 'date_joined')  # Add the fields you want to display
+# Register the User model with the custom admin class
+admin.site.register(User, UserAdmin)
 admin.site.register(AuthKeys)
 admin.site.register(Tutor)
 admin.site.register(Lecture)

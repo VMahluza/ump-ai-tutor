@@ -92,7 +92,7 @@ class User(AbstractUser):
         ADMIN = "ADMIN", "Admin"
         STUDENT = "STUDENT", "Student"
         LECTURE = "LECTURE", "LECTURE"
-        TUTOR = "TUTOR", "TUTOR"
+        TUTOR = "TUTOR", "TUTOR" 
     class Gender(models.TextChoices):
         MALE = "MALE", "Male"
         FEMALE = "FEMALE", "Female"
@@ -123,7 +123,8 @@ class User(AbstractUser):
           return super().save(*args, **kwargs)
         
     def __str__(self):
-        return self.get_full_name
+        return f"{self.username}({self.email})"
+        
 # ./END OF USER MODEL
 
 # START OF REGISTRATION MODEL
@@ -259,7 +260,6 @@ def broadcast_question_to_everyone(sender, instance, created, **kwargs):
         course = instance.course 
         registrations = Registration.objects.filter(course=course)
         recipient_list = [registration.user.email for registration in registrations]
-
         subject = f'Query for module {instance.module} Have been asked'
         message = f"""
         The question bellow was asked 
@@ -267,8 +267,7 @@ def broadcast_question_to_everyone(sender, instance, created, **kwargs):
         if you wish to respond to the question please visit the our site 
         https://ump-ai-tutor-production.up.railway.app/
         """
-        send_mail(subject, message, from_email, recipient_list, fail_silently=False)
-         
+        # send_mail(subject, message, from_email, recipient_list, fail_silently=False) 
         print("Broadcasting Question to everyone doing this module")  
 
 # ./END OF MODULE MODEL
