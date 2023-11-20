@@ -96,13 +96,21 @@ DATABASES = {
     #     'HOST':'localhost',
     #     'PORT':'3306',
     # }
+    # 'default': {
+    #         'ENGINE': os.getenv('DATABASE_ENGINE'),
+    #         'NAME': os.getenv('DATABASE_NAME'),
+    #         'USER': os.getenv('DATABASE_USER'),
+    #         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+    #         'HOST': os.getenv('DATABASE_HOST'),
+    #         'PORT': os.getenv('DATABASE_PORT'),
+    #     }
     'default': {
-            'ENGINE': os.getenv('DATABASE_ENGINE'),
-            'NAME': os.getenv('DATABASE_NAME'),
-            'USER': os.getenv('DATABASE_USER'),
-            'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-            'HOST': os.getenv('DATABASE_HOST'),
-            'PORT': os.getenv('DATABASE_PORT'),
+            'ENGINE': "django.db.backends.postgresql",
+            'NAME': os.getenv('PGDATABASE'),
+            'USER': os.getenv('PGUSER'),
+            'PASSWORD': os.getenv('PGPASSWORD'),
+            'HOST': os.getenv('PGHOST'),
+            'PORT': os.getenv('PGPORT'),
         }
 }
 
