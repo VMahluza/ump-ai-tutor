@@ -27,6 +27,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+if os.environ.get('INDEVELOPMENT'):
+    DEBUG = True
+    print(os.environ.get('INDEVELOPMENT'))
+
 ALLOWED_HOSTS = ["*"]
 # Application definition
 
@@ -83,36 +87,47 @@ WSGI_APPLICATION = "config.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 
-DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # },
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'aitutordb',
-    #     'USER': 'root',
-    #     'PASSWORD': 'root',
-    #     'HOST':'localhost',
-    #     'PORT':'3306',
-    # }
-    # 'default': {
-    #         'ENGINE': os.getenv('DATABASE_ENGINE'),
-    #         'NAME': os.getenv('DATABASE_NAME'),
-    #         'USER': os.getenv('DATABASE_USER'),
-    #         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-    #         'HOST': os.getenv('DATABASE_HOST'),
-    #         'PORT': os.getenv('DATABASE_PORT'),
-    #     }
-    'default': {
-            'ENGINE': "django.db.backends.postgresql",
-            'NAME': os.getenv('PGDATABASE'),
-            'USER': os.getenv('PGUSER'),
-            'PASSWORD': os.getenv('PGPASSWORD'),
-            'HOST': os.getenv('PGHOST'),
-            'PORT': os.getenv('PGPORT'),
-        }
-}
+DATABASES = {}
+
+
+if DEBUG:
+    DATABASES['default'] = { 
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+
+else :
+
+    DATABASES['default'] = {
+        # "default": {
+        #     "ENGINE": "django.db.backends.sqlite3",
+        #     "NAME": BASE_DIR / "db.sqlite3",
+        # },
+        # 'default': {
+        #     'ENGINE': 'django.db.backends.mysql',
+        #     'NAME': 'aitutordb',
+        #     'USER': 'root',
+        #     'PASSWORD': 'root',
+        #     'HOST':'localhost',
+        #     'PORT':'3306',
+        # }
+        # 'default': {
+        #         'ENGINE': os.getenv('DATABASE_ENGINE'),
+        #         'NAME': os.getenv('DATABASE_NAME'),
+        #         'USER': os.getenv('DATABASE_USER'),
+        #         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        #         'HOST': os.getenv('DATABASE_HOST'),
+        #         'PORT': os.getenv('DATABASE_PORT'),
+        #     }
+
+                'ENGINE': "django.db.backends.postgresql",
+                'NAME': os.getenv('PGDATABASE'),
+                'USER': os.getenv('PGUSER'),
+                'PASSWORD': os.getenv('PGPASSWORD'),
+                'HOST': os.getenv('PGHOST'),
+                'PORT': os.getenv('PGPORT'),
+
+    }
 
 
 

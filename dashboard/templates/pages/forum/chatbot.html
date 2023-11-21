@@ -48,21 +48,22 @@
     </div>
 </div>
 
-
-
 {{ room_name|json_script:"room-name" }}
 <script>
     const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
+
+    const socketHttp = (window.location.href.includes("https")) ? "wss://" : "ws://";
+    console.log(socketHttp)
     const chatSocket = new WebSocket(
-        'wss://'
+        socketHttp
         + window.location.host
         + '/ws/chat/'
         + roomName
         + '/'
     );
 
-    console.log('wss://'
+    console.log(socketHttp
     + window.location.host
     + '/ws/chat/'
     + roomName
