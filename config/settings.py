@@ -28,8 +28,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = False
 
 if os.environ.get('INDEVELOPMENT'):
-    DEBUG = True
-    print(os.environ.get('INDEVELOPMENT'))
+    DEBUG = False
+    
 
 ALLOWED_HOSTS = ["*"]
 # Application definition
@@ -97,12 +97,11 @@ if DEBUG:
     }
 
 else :
-
     DATABASES['default'] = {
-        # "default": {
-        #     "ENGINE": "django.db.backends.sqlite3",
-        #     "NAME": BASE_DIR / "db.sqlite3",
-        # },
+       
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+   
         # 'default': {
         #     'ENGINE': 'django.db.backends.mysql',
         #     'NAME': 'aitutordb',
@@ -120,12 +119,12 @@ else :
         #         'PORT': os.getenv('DATABASE_PORT'),
         #     }
 
-                'ENGINE': "django.db.backends.postgresql",
-                'NAME': os.getenv('PGDATABASE'),
-                'USER': os.getenv('PGUSER'),
-                'PASSWORD': os.getenv('PGPASSWORD'),
-                'HOST': os.getenv('PGHOST'),
-                'PORT': os.getenv('PGPORT'),
+                # 'ENGINE': "django.db.backends.postgresql",
+                # 'NAME': os.getenv('PGDATABASE'),
+                # 'USER': os.getenv('PGUSER'),
+                # 'PASSWORD': os.getenv('PGPASSWORD'),
+                # 'HOST': os.getenv('PGHOST'),
+                # 'PORT': os.getenv('PGPORT'),
 
     }
 

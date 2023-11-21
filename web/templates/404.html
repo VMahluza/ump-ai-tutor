@@ -1,0 +1,37 @@
+{% extends 'global/base.html' %}
+{% comment %} {% block title %}{% translate 'Page not found' %}{% endblock title %} {% endcomment %}
+{% block content %}
+{% include 'global/header.html' %}
+<main id="main">
+{% load i18n %}
+<h2></h2>
+  <!-- ======= Hero Section ======= -->
+  {% load static %}
+  <section id="hero" class="hero d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-4">
+        <div><img src="{% static 'BinaBendits-txt.png' %}" width="80%"></div>
+
+        <h2 data-aos="fade-up"><span class="animated-gradient" ><i class="bi bi-bug-fill"></i></span>404<br>{% translate 'Page not found' %}<span style="color: #e81cff;">.</span></h2>
+          <blockquote data-aos="fade-up" data-aos-delay="100">
+           <p>{% translate 'We’re sorry, but the requested page could not be found.' %}</p>
+            
+        </blockquote>
+          <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+            {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" style="background:linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );" class="btn-get-started">Go to Dashboard <i class="bi bi-arrow-bar-right"></i></a>
+            {% else %}
+            <a href="{% url 'home' %}" style="background:linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );" class="btn-get-started"><i class="bi bi-arrow-bar-left"></i> Go Back Home</a>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section><!-- End Hero Section -->
+  <script>
+      document.getElementById("hero").style.background = "url('https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"
+    //   document.getElementById("footer").style.display = "none"
+  </script>
+{% endblock %}
