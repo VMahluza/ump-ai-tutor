@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = False
 
 if os.environ.get('INDEVELOPMENT'):
-    DEBUG = False
+    DEBUG = True
     
 
 ALLOWED_HOSTS = ["*"]
