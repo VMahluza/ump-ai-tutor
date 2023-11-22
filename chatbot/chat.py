@@ -30,7 +30,7 @@ model = NeuralNet(input_size, hidden_size, output_size).to(device)
 model.load_state_dict(model_state)
 model.eval()
 
-bot_name = "Luffy"
+bot_name = ""
 # print("Let's chat! (type 'quit' to exit)")
 # while True:
 #     # sentence = "do you use credit cards?"
@@ -78,7 +78,7 @@ def get_chatbot_message(message):
     if prob.item() > 0.75:
         for intent in intents['intents']:
             if tag == intent["tag"]:
-                return f"{bot_name}: {random.choice(intent['responses'])}"
+                return f"{random.choice(intent['responses'])}"
     else:
         return f"{bot_name}: I do not understand..."
 

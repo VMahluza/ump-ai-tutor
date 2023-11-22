@@ -29,7 +29,7 @@
     <div style="display:flex;flex-direction: column;"
         class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
 
-        <textarea class="form-control" style="height: 111px;"></textarea>
+        {% comment %} <textarea class="form-control" style="height: 111px;"></textarea> {% endcomment %}
         <br>
         <div class="input-group mb-0">
             <input id="chat-message-input" type="text" class="form-control" placeholder="Type message"
@@ -41,12 +41,9 @@
         </div>
     </div>
 </div>
-
 {{ room_name|json_script:"room-name" }}
 <script>
     const roomName = JSON.parse(document.getElementById('room-name').textContent);
-
-
     const socketHttp = (window.location.href.includes("https")) ? "wss://" : "ws://";
     console.log(socketHttp)
     const chatSocket = new WebSocket(
@@ -125,13 +122,11 @@
 chatSocket.send(JSON.stringify({
   'message': message
 }));
-
 // Clear the input field
 messageInputDom.value = '';
 
 // Scroll down to the latest chat message
 chatArea.scrollTop = chatArea.scrollHeight;
-
 
 };
 

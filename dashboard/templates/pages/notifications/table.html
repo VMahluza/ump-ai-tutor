@@ -1,0 +1,118 @@
+<style>
+  .button1 {
+background-color: #F2F7FA;
+width: 100px;
+height: 30px;
+border: none;
+border-radius: 10px;
+font-weight: 600;
+overflow: hidden;
+transition-duration: 700ms;
+}
+
+.button1 span:first-child {
+color: #0E418F;
+position: absolute;
+transform: translate(-50%, -50%)
+}
+
+.button1 span:last-child {
+position: absolute;
+color: #B5CCF3;
+opacity: 0;
+transform: translateY(100%) translateX(-50%);
+height: 14px;
+line-height: 13px;
+}
+
+.button1:focus {
+background-color: #0E418F;
+width: 120px;
+height: 40px;
+transition-delay: 100ms;
+transition-duration: 500ms;
+}
+
+.button1:focus span:first-child {
+color: #B5CCF3;
+transform: translateX(-50%) translateY(-150%);
+opacity: 0;
+transition-duration: 500ms;
+}
+
+.button1:focus span:last-child {
+transform: translateX(-50%) translateY(-50%);
+opacity: 1;
+transition-delay: 300ms;
+transition-duration: 500ms;
+}
+
+.button1:focus:end {
+background-color: #FFFFFF;
+width: 120px;
+height: 40px;
+transition-duration: 900ms;
+}
+
+.centralize {
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
+}
+
+.description {
+margin-top: 10px;
+color: #B5CCF3;
+}
+</style>
+<section class="section">
+  <div class="row">
+      <div class="col-lg-12">
+
+          <div class="card">
+              <div class="card-body">
+                  <h5 class="card-title">Notifications</h5>
+
+                  <!-- Table with stripped rows -->
+                  <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+                      
+                    <div class="datatable-container">
+                      <table id="datatable" class="table datatable datatable-table">
+                        <thead>
+                            <tr>
+                                <th data-sortable="true" style="width: 28.07017543859649%;"><a href="#"
+                                        class="datatable-sorter">Name</a></th>
+                                <th data-sortable="true" style="width: 37.719298245614034%;"><a href="#"
+                                        class="datatable-sorter">Description</a></th>
+                                <th data-sortable="true" style="width: 9.298245614035087%;"><a href="#"
+                                        class="datatable-sorter">By</a></th>
+                                <th data-sortable="true" style="width: 9.298245614035087%;"><a href="#"
+                                        class="datatable-sorter">Time Stamp</a></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {% for notification in notifications %}
+                          <tr data-index="{{forloop.counter}}">
+                              {% comment %} <td>{{regs.user.id}}</td> {% endcomment %}
+                              <td>{{notification.name}}</td>
+                              <td>{{notification.description}}</td>
+                              <td>{{notification.user.get_full_name}}</td>
+                              <td>{{notification.date_made}}</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                    </table>
+                      </div>
+
+                  </div>
+                  <!-- End Table with stripped rows -->
+
+              </div>
+          </div>
+
+      </div>
+  </div>
+</section>

@@ -76,7 +76,7 @@ class Course(models.Model):
 class Module(models.Model):
     code = models.CharField(max_length=50, blank=True, null=True)
     name = models.CharField(max_length=50, blank=True, null=True)
-    description = models.TextField(max_length=150, blank=True, null=True)
+    description = models.TextField(max_length=225, blank=True, null=True)
     course = models.ForeignKey(Course, blank=True, null=True, on_delete=models.CASCADE)
     def __str__(self) -> str:
         return self.name
@@ -331,3 +331,17 @@ class Vote(models.Model):
 
     def __str__(self):
         return f"#{self.id}-Vote from {self.user.username}"
+    
+class Notification(models.Model):
+    class Categories(models.TextChoices):
+        WARNING = "<i class='bi bi-exclamation-circle text-warning'></i>", "Warning"
+        DANGER = "<i class='bi bi-x-circle text-danger''></i>", "Danger"
+        SUCCESS = "<i class='bi bi-check-circle text-success'></i>", "Success"
+        INFO = "<i class='bi bi-info-circle text-primary'></i>", "Info"
+
+    category_icon = models.CharField(max_length=200, choices=Categories.choices, default=Categories.SUCCESS)
+    name = models.CharField(max_length=50, blank=True, null=True)
+    description = models.CharField(max_length=50, blank=True, null=True)
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, related_name="user_notifications")
+    course = models.ForeignKey(Course, blank=True, null=True, on_delete=models.CASCADE)
+    date_made = models.DateTimeField(auto_now=True, blank=True, null=True)

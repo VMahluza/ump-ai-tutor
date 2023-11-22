@@ -21,7 +21,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
-from .models import Student, Lecture, Tutor, Vote
+from .models import Student, Lecture, Tutor, Vote, Notification
 import datetime
 from django.core.mail import send_mail
 
@@ -39,6 +39,9 @@ class HomeDashboardPageView(LoginRequiredMixin, TemplateView):
         context['students_count'] = Student.student.count()
         context['tutors_count'] = Tutor.tutor.count()
         context['lecture_count'] = Lecture.lecture.count()
+        notifications = Notification.objects.all()
+        context['notifications_first_4'] = notifications[:4]
+        context['notifications'] = notifications
         context['top_queries'] = None
         context['current_time'] = str(datetime.datetime.now())
         return context
@@ -51,6 +54,9 @@ class ActiveUsersboardPageView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         register = Registration.objects.get(user=self.request.user)
+        notifications = Notification.objects.all()
+        context['notifications_first_4'] = notifications[:4]
+        context['notifications'] = notifications
         context['title'] = 'Participants'
         context['registration'] = register
         context['active_users'] = Registration.objects.filter(course=register.course)
@@ -64,8 +70,24 @@ class TutorDashboardPageView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Tutors'
+        notifications = Notification.objects.all()
+        context['notifications_first_4'] = notifications[:4]
+        context['notifications'] = notifications
+
         context['accesskey'] = AuthKeys.objects.filter(user=self.request.user).last()
         # Add more data to the context if needed
+        return context
+class NotificationPageView(LoginRequiredMixin, TemplateView):
+    template_name = 'pages/notifications/index.html'
+    login_url = '/auth/login/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context['title'] = 'Notifications'
+        notifications = Notification.objects.all()
+        context['notifications'] = notifications
+        context['notifications_first_4'] = notifications[:4]
         return context
 class UserProfilePageView(LoginRequiredMixin, UpdateView):
     template_name = 'pages/profile/index.html'
@@ -79,7 +101,9 @@ class UserProfilePageView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Profile'
         context["password_error"] = self.request.GET.get('password_error')
-
+        notifications = Notification.objects.all()
+        context['notifications_first_4'] = notifications[:4]
+        context['notifications'] = notifications
         context['registration'] = Registration.objects.get(user=self.request.user)
         context['accesskey'] = AuthKeys.objects.filter(user=self.request.user).last()
         # Add more data to the context if needed
@@ -88,8 +112,6 @@ class UserProfilePageView(LoginRequiredMixin, UpdateView):
         return self.request.user
     
     
-
-
 # # Create your views here.
 class QAForumPageView(LoginRequiredMixin, CreateView):
     template_name = 'pages/forum/index.html'
@@ -104,6 +126,9 @@ class QAForumPageView(LoginRequiredMixin, CreateView):
         registration = Registration.objects.get(user=self.request.user)
         room_name =   f'{self.request.user.id}_{self.request.user.username}'
         course = registration.course
+        notifications = Notification.objects.all()
+        context['notifications_first_4'] = notifications[:4]
+        context['notifications'] = notifications
         context['questries'] = Query.objects.filter(course=course)
         context['room_name'] = room_name
         # Assuming you have an instance of the Query model called `query`
@@ -143,40 +168,39 @@ def down_vote_query(request):
     user = request.user
     query_id = request.GET.get('q')
     query = get_object_or_404(Query, id=query_id)
-
     # Check if the user has already voted for this query
     existing_vote = Vote.objects.filter(user=user, query=query, vote_type=Vote.UPVOTE).first()
-
-    print("Down Vote", existing_vote)
-
     if existing_vote:
-     
         # Update the existing vote to be a downvote
         existing_vote.vote_type = Vote.DOWNVOTE
         existing_vote.save()
-
     return redirect('/dashboard/forum')
-
-
-
-
 
 def add_answer_to_query(request):
     print("From dashboard")
+    user = request.user
     if request.method == 'POST':
         answer_text = request.POST.get('answer_text') # Retrieve the answer_text from the form data
         query_id = request.POST.get('query_id') # Retrieve the answer_text from the form data
         # Access other form fields in a similar manner
-        print(answer_text)
         answer = Answer.objects.create(
-            user = request.user,
+            user = user,
             answer_text = answer_text,
             query = Query.objects.get(id=int(query_id))
         )
         # Process the form data
         # ...   
         answer.save()
-
+       
+        notification = Notification.objects.create(
+            category_icon = Notification.Categories.SUCCESS,
+            name = "New Answer",
+            description = f"{user.get_full_name} answered a question {answer.query.name}",
+            user = user,
+            course = answer.query.course
+            
+        )
+        notification.save()
         return redirect('/dashboard/forum?a=new')  # Redirect to the desired URL after processing the form
 
     # Handle the case when the request method is not POST
@@ -214,6 +238,14 @@ class LoggedTicketListView(ListView):
     template_name = 'pages/tickets/index.html'
     context_object_name = 'tickets'
     ordering = ['resolve']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        notifications = Notification.objects.all()
+        context['notifications_first_4'] = notifications[:4]
+        context['notifications'] = notifications
+        context['title'] = 'Tickets'
+        return context
 
 def resolveTicket(request):
 
