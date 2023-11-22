@@ -229,12 +229,20 @@ class AuthKeys(models.Model):
     available = models.BooleanField(default=True)
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
 
+
+# VOTE MODEL
+
+# ./END OF MODULE MODEL
+
+
+# ./END OF VOTE MODEL
+
 # ./END OF MODULE MODEL
 class Query(models.Model):
     question_text = models.TextField(max_length=1000, null=True, blank=False)
     pub_date = models.DateTimeField(auto_now=True, blank=True, null=True)
     # Other fields related to questions
-    votes = models.IntegerField(default=0, null=True, blank=True)
+   
     module = models.ForeignKey(Module, blank=True, null=True, on_delete=models.CASCADE)
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, blank=True, null=True, on_delete=models.CASCADE)
@@ -251,6 +259,14 @@ class Query(models.Model):
     def answers(self):
         print(self)
         return Answer.objects.filter(query_id=self.id)
+    
+    @property
+    def votes(self):
+        votes = Vote.objects.filter(query_id=self.id, vote_type=Vote.UPVOTE)
+        print(votes.count())
+        return votes.count()
+    
+    
 
 
 @receiver(post_save, sender=Query)
@@ -295,5 +311,23 @@ def broadcast_answer_to_everyone(sender, instance, created, **kwargs):
         print("Broadcasting Answer to everyone doing this module")  
 
 # ./END OF MODULE MODEL
+class Vote(models.Model):
+    UPVOTE = 'UP'
+    DOWNVOTE = 'DOWN'
 
-    
+    VOTE_CHOICES = [
+        (UPVOTE, 'Upvote'),
+        (DOWNVOTE, 'Downvote'),
+    ]
+
+    vote_date = models.DateTimeField(auto_now=True, blank=True, null=True)
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, related_name="user_votes")
+    query = models.ForeignKey(Query, blank=True, null=True, on_delete=models.CASCADE, related_name="query_votes")
+    answer = models.ForeignKey(Answer, blank=True, null=True, on_delete=models.CASCADE, related_name="answer_votes")
+    vote_type = models.CharField(max_length=4, choices=VOTE_CHOICES, default="UP")
+
+    class Meta:
+        unique_together = ('user', 'query', 'answer')  # Ensure a user can only vote once for a query or answer
+
+    def __str__(self):
+        return f"#{self.id}-Vote from {self.user.username}"

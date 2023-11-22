@@ -16,12 +16,12 @@ from django.views.generic.edit import UpdateView
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
-from .models import Student, Lecture, Tutor
+from .models import Student, Lecture, Tutor, Vote
 import datetime
 from django.core.mail import send_mail
 
@@ -39,7 +39,7 @@ class HomeDashboardPageView(LoginRequiredMixin, TemplateView):
         context['students_count'] = Student.student.count()
         context['tutors_count'] = Tutor.tutor.count()
         context['lecture_count'] = Lecture.lecture.count()
-        context['top_queries'] = Query.objects.order_by('-votes')[:6]
+        context['top_queries'] = None
         context['current_time'] = str(datetime.datetime.now())
         return context
 # Create your views here.
@@ -127,17 +127,37 @@ def generate_auth_key( request):
     return redirect('tutor')
 
 def up_vote_query(request):
+    user = request.user
     query_id = request.GET.get('q')
     query = Query.objects.get(id=query_id)
-    query.votes += 1
-    query.save()
+    votes_made_by_user_for_query = Vote.objects.filter(user=user, query=query, vote_type=Vote.UPVOTE)
+
+    print("Votes for Query", votes_made_by_user_for_query)
+    if not votes_made_by_user_for_query:
+        vote = Vote.objects.create(user=user, query=query)
+        vote.save()
+
     return redirect('/dashboard/forum')
+
 def down_vote_query(request):
+    user = request.user
     query_id = request.GET.get('q')
-    query = Query.objects.get(id=query_id)
-    query.votes -= 1
-    query.save()
+    query = get_object_or_404(Query, id=query_id)
+
+    # Check if the user has already voted for this query
+    existing_vote = Vote.objects.filter(user=user, query=query, vote_type=Vote.UPVOTE).first()
+
+    print("Down Vote", existing_vote)
+
+    if existing_vote:
+     
+        # Update the existing vote to be a downvote
+        existing_vote.vote_type = Vote.DOWNVOTE
+        existing_vote.save()
+
     return redirect('/dashboard/forum')
+
+
 
 
 
