@@ -79,7 +79,7 @@
                     <!-- Table with stripped rows -->
                     <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
                         <div class="datatable-container">
-                            <table class="table datatable datatable-table">
+                            <table id="datatable" class="table datatable datatable-table">
                                 <thead>
                                     <tr>
                                         <th data-sortable="true" style="width: 28.07017543859649%;"><a href="#"
@@ -94,14 +94,12 @@
                                 </thead>
                                 <tbody>
                                   {% for regs in active_users %}
-
                                   <tr data-index="{{forloop.counter}}">
                                       {% comment %} <td>{{regs.user.id}}</td> {% endcomment %}
                                       <td>{{regs.user.first_name}}</td>
                                       <td>{{regs.user.last_name}}</td>
                                       <td>{{regs.user.gender}}</td>
-                                      <td>
-                                        
+                                      <td>    
                                         {% if regs.user.is_online %}
                                         <i  class="bi bi-record-fill text-success"></i>
                                         <spna class="text-success">Online</span>

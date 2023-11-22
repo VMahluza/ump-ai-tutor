@@ -48,7 +48,6 @@ class HomeDashboardPageView(LoginRequiredMixin, TemplateView):
 class ActiveUsersboardPageView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/users/index.html'
     login_url = '/auth/login/'
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         register = Registration.objects.get(user=self.request.user)
@@ -58,8 +57,6 @@ class ActiveUsersboardPageView(LoginRequiredMixin, TemplateView):
         # Add more data to the context if needed
         return context
 # Create your views here.
-
-
 class TutorDashboardPageView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/tutor/index.html'
     login_url = '/auth/login/'

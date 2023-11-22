@@ -26,9 +26,13 @@
   <link href="{% static 'dashboard/assets/vendor/quill/quill.bubble.css'%} " rel="stylesheet">
   <link href="{% static 'dashboard/assets/vendor/remixicon/remixicon.css'%} " rel="stylesheet">
   <link href="{% static 'dashboard/ assets/vendor/simple-datatables/style.css'%}" rel="stylesheet">
-
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
   <!-- Template Main CSS File -->
   <link href="{% static 'dashboard/assets/css/style.css'%}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -66,6 +70,10 @@
 
 
 
+  <script>
+    // When document is ready convert to datatable $(document).ready(function () { $('#example').DataTable(); });
+    $(document).ready(function () { $('#datatable').DataTable()})
+    </script>
   <!-- Vendor JS Files -->
   <script src="{% static 'dashboard/assets/vendor/apexcharts/apexcharts.min.js' %}"></script>
   <script src="{% static 'dashboard/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -78,7 +86,7 @@
   <!-- Template{% static 'dashboard/assets/vendor/' %}  Main JS File -->
   <script src="{% static 'dashboard/assets/js/main.js' %} "></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 </body>
 
 </html>

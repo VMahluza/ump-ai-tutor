@@ -25,14 +25,14 @@
             {% for query in top_queries %}    
             <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
               <div class="post-box">
-                <div class="image-container post-img">
+                {% comment %} <div class="image-container post-img">
                   
                   {% if query.user.profile_pic %}
                   <img src="{{query.user.profile_pic.url}}"  class="img-fluid" alt="">
                   {% else %}
                   <img src="{% static 'img/blog/chatbot.webp' %}" class="cropped-image img-fluid" alt="">
                   {% endif %}
-                </div>
+                </div> {% endcomment %}
                 <div class="meta">
                   <span style="text-transform:uppercase" class="post-date">{{query.pub_date}}</span>
                   <span class="post-author"> / {{query.user.get_short_name}}</span>

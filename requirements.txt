@@ -23,3 +23,5 @@ channels[daphne]
 channels_redis
 django-smtp-ssl==1.0
 dnspython==2.3.0
+boto3
+django-storages

@@ -25,4 +25,10 @@ urlpatterns = [
     path("dashboard/", include("dashboard.urls")),
     # path("chat/", include("chatbot.urls")),
     path("logout", LogoutView.as_view(), name="logout"),
-]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+# ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:  # Dev only
+    urlpatterns += static(settings.STATIC_URL,
+                        document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                        document_root=settings.MEDIA_ROOT)

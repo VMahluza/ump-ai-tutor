@@ -2,3 +2,4 @@ env/
 dep/
 .env
 **/.env
+ai-awsS3.json
