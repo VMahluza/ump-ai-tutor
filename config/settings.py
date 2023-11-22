@@ -163,22 +163,19 @@ USE_TZ = True
 #     os.path.join(BASE_DIR, "static"),
 # ]
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, "static",'media')
-# MEDIA_URL = 'static/media/'
-# if DEBUG:
-#     MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "static",'media')
+MEDIA_URL = 'static/media/'
+if DEBUG:
+    MEDIA_URL = 'media/'
 
-MEDIA_URL = 'media/'
 
-MEDIA_ROOT = BASE_DIR / 'media'
+# MEDIA_ROOT = BASE_DIR / 'media'
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-
 # ----------------------------------------------------------------
-
 AWS_ACCESS_KEY_ID = 'AKIAW4X3BG4U5FLAURRZ'
 AWS_SECRET_ACCESS_KEY = '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'
 
@@ -186,7 +183,6 @@ AWS_STORAGE_BUCKET_NAME = 'ump-ai-tutor-v1'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 AWS_S3_FILE_OVERWRITE = False
-
 AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 AWS_DEFAULT_ACL = None
 AWS_LOCATION = 'static'
@@ -195,7 +191,6 @@ STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # DEFAULT_FILE_STORAGE = 'core.storages.MediaStore'
-
 
 STORAGES = {
 
