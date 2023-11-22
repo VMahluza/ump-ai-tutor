@@ -60,8 +60,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-CSRF_TRUSTED_ORIGINS = ['https://ump-ai-tutor-production.up.railway.app', 'http://ump-ai-tutor-production.up.railway.app/', 'https://ump-ai-tutor-v1.s3.us-east-2.amazonaws.com/']
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8000", 'https://ump-ai-tutor-production.up.railway.app', 'http://ump-ai-tutor-production.up.railway.app/', 'https://ump-ai-tutor-v1.s3.us-east-2.amazonaws.com/']
 
 ROOT_URLCONF = "config.urls"
 

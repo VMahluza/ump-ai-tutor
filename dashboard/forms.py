@@ -1,5 +1,5 @@
 from django import forms
-from .models import Query, Answer, User, LoggedTicket
+from .models import Query, Answer, User, LoggedTicket, Registration
 from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.forms import PasswordChangeForm
@@ -56,6 +56,21 @@ class UserProfileUpdateForm(forms.ModelForm):
             self.fields[str(field)].widget.attrs.update(
                 new_data
             )
+
+class RegistrationUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Registration
+        fields = ['documents']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            new_data = { 
+                "class": 'form-control'
+            }
+            self.fields[str(field)].widget.attrs.update(
+                new_data
+            )
+
 
 class LoggedTicketForm(forms.ModelForm):
     class Meta:

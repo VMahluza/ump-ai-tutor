@@ -51,7 +51,7 @@ class HomePageView(CreateView):
         ]
 
         context['feature_items'] = feature_items
-        context['top_queries'] = Query.objects.order_by('-votes')[:4]
+        context['top_queries'] = None
         # Add more data to the context if needed
         return context
     

@@ -1,3 +1,4 @@
+from django.forms.models import BaseModelForm
 from django.views.generic import TemplateView, View
 from .models import AuthKeys
 from django.shortcuts import redirect
@@ -6,7 +7,7 @@ import subprocess
 from .models import Registration, Answer, User
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
-from .forms import  QueryForm, AnswerForm, UserProfileUpdateForm,ChangePasswordForm
+from .forms import  QueryForm, AnswerForm, UserProfileUpdateForm,ChangePasswordForm, RegistrationUpdateForm
 from django.views.generic import CreateView
 from dashboard.models import AuthKeys, Registration, Query, Module
 from django.contrib.auth import login, logout, authenticate
@@ -110,6 +111,32 @@ class UserProfilePageView(LoginRequiredMixin, UpdateView):
         return context
     def get_object(self, queryset=None):
         return self.request.user
+class RegistrationSupportingDocsPageView(LoginRequiredMixin, UpdateView):
+    template_name = 'pages/supporting-document/index.html'
+    login_url = '/auth/login/'
+    # form_class = UserProfileUpdateForm
+    success_url = reverse_lazy('supporting-document')
+    form_class = RegistrationUpdateForm
+    # change_password_form = UserProfileUpdateForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Supporting Document'
+        notifications = Notification.objects.all()
+        form =  self.get_form()
+        registration = Registration.objects.get(user=self.request.user)
+        form.instance=registration
+        context['form'] = form
+        context['notifications_first_4'] = notifications[:4]
+        context['notifications'] = notifications
+        context['registration'] = registration
+        # Add more data to the context if needed
+        return context 
+    def get_object(self, queryset=None):
+        registration = Registration.objects.get(user=self.request.user)     
+        return registration
+    
+
     
     
 # # Create your views here.

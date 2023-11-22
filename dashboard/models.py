@@ -127,6 +127,9 @@ class User(AbstractUser):
         
 # ./END OF USER MODEL
 
+def registration_directory_path(instance, filename):
+    return 'registration/user/{0}/{1}'.format(instance.id, filename)
+
 # START OF REGISTRATION MODEL
 class Registration(models.Model):
     class Level(models.TextChoices):
@@ -136,7 +139,7 @@ class Registration(models.Model):
         FORTH_YEAR =  "4", "4th Year"
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, blank=True, null=True, on_delete=models.SET_NULL)
-    documents = models.FileField(blank=True, null=True, upload_to="media/user/documents")
+    documents = models.FileField(blank=True, null=True, upload_to=registration_directory_path)
     level_of_study = models.CharField(max_length=50, default=Level.FIRST_YEAR, choices=Level.choices)
 
 # ./END OF REGISTRATION MODEL
