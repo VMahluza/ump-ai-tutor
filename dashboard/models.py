@@ -77,14 +77,13 @@ class Module(models.Model):
     code = models.CharField(max_length=50, blank=True, null=True)
     name = models.CharField(max_length=50, blank=True, null=True)
     description = models.TextField(max_length=225, blank=True, null=True)
-    course = models.ForeignKey(Course, blank=True, null=True, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, blank=True, null=True, on_delete=models.CASCADE, related_name="course_modules")
     def __str__(self) -> str:
         return self.name
 # ./END OF MODULE MODEL
 
 def user_directory_path(instance, filename):
     return 'images/user_profile_pictures/{0}/{1}'.format(instance.id, filename)
-
 # Create your models here.
 # START OF USER MODEL
 class User(AbstractUser):
@@ -141,6 +140,9 @@ class Registration(models.Model):
     course = models.ForeignKey(Course, blank=True, null=True, on_delete=models.SET_NULL)
     documents = models.FileField(blank=True, null=True, upload_to=registration_directory_path)
     level_of_study = models.CharField(max_length=50, default=Level.FIRST_YEAR, choices=Level.choices)
+
+
+
 
 # ./END OF REGISTRATION MODEL
 
@@ -246,9 +248,9 @@ class Query(models.Model):
     pub_date = models.DateTimeField(auto_now=True, blank=True, null=True)
     # Other fields related to questions
    
-    module = models.ForeignKey(Module, blank=True, null=True, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, blank=True, null=True, on_delete=models.CASCADE)
+    module = models.ForeignKey(Module, blank=True, null=True, on_delete=models.CASCADE, related_name="module_queries")
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, related_name="user_queries")
+    course = models.ForeignKey(Course, blank=True, null=True, on_delete=models.CASCADE, related_name="course_queries")
 
     def __str__(self):
         return self.question_text
@@ -270,8 +272,6 @@ class Query(models.Model):
         return votes.count()
     
     
-
-
 @receiver(post_save, sender=Query)
 def broadcast_question_to_everyone(sender, instance, created, **kwargs):
     if created:
@@ -348,3 +348,24 @@ class Notification(models.Model):
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, related_name="user_notifications")
     course = models.ForeignKey(Course, blank=True, null=True, on_delete=models.CASCADE)
     date_made = models.DateTimeField(auto_now=True, blank=True, null=True)
+
+def file_directory_path(instance, filename):
+    return 'learning_material/{0}/{1}'.format(instance.id, filename)
+
+# START OF REGISTRATION MODEL
+class LearningMaterial(models.Model):
+    class FileType(models.TextChoices):
+        IMAGE = "IMAGE", "Image"
+        AUDIO = "AUDIO", "Audio"
+        VIDEO = "VIDEO", "Video"
+        DOCUMENT = "DOCUMENT", "Document"
+        OTHER = "OTHER", "Other"
+
+    file_type = models.CharField(max_length=200, choices=FileType.choices, default=FileType.IMAGE)
+    file = models.FileField(blank=True, null=True, upload_to=file_directory_path)
+    name = models.CharField(max_length=200, blank=True, null=True)
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, related_name="user_learning_materials")
+    module = models.ForeignKey(Module, blank=True, null=True, on_delete=models.SET_NULL, related_name="module_learning_materials")
+    is_public = models.BooleanField(blank=True, default=False)
+    date_uploaded = models.DateTimeField(auto_now=True, blank=True, null=True)
+

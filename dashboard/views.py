@@ -7,7 +7,7 @@ import subprocess
 from .models import Registration, Answer, User
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
-from .forms import  QueryForm, AnswerForm, UserProfileUpdateForm,ChangePasswordForm, RegistrationUpdateForm
+from .forms import LearningMaterialForm, LearningMaterialUpdateForm, QueryForm, AnswerForm, UserProfileUpdateForm,ChangePasswordForm, RegistrationUpdateForm
 from django.views.generic import CreateView
 from dashboard.models import AuthKeys, Registration, Query, Module
 from django.contrib.auth import login, logout, authenticate
@@ -22,9 +22,11 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
-from .models import Student, Lecture, Tutor, Vote, Notification
+from .models import Student, Lecture, Tutor, Vote, Notification, LearningMaterial
 import datetime
 from django.core.mail import send_mail
+from django.urls import reverse
+
 
 
 
@@ -136,6 +138,45 @@ class RegistrationSupportingDocsPageView(LoginRequiredMixin, UpdateView):
         registration = Registration.objects.get(user=self.request.user)     
         return registration
     
+class LearningMaterialViewPageView(LoginRequiredMixin, UpdateView):
+    template_name = 'pages/learning-material/file.html'
+    login_url = '/auth/login/'
+    # form_class = UserProfileUpdateForm
+    success_url = None
+    form_class = LearningMaterialUpdateForm
+    # change_password_form = UserProfileUpdateForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        learning_material_id = self.request.GET.get('file_id')
+
+        
+        learning_material = get_object_or_404(LearningMaterial, id=learning_material_id)
+
+        context['learning_material'] = learning_material
+        
+        context['title'] = 'Supporting Document'
+        notifications = Notification.objects.all()
+    
+        registration = Registration.objects.get(user=self.request.user)
+
+        context['notifications_first_4'] = notifications[:4]
+        context['notifications'] = notifications
+        # Add more data to the context if needed
+        return context 
+    def get_object(self, queryset=None):
+        learning_material_id = self.request.GET.get('file_id')
+        learning_material = get_object_or_404(LearningMaterial, id=learning_material_id)
+        print(learning_material)
+        return learning_material
+    
+
+    def get_success_url(self):
+        learning_material_id = self.request.GET.get('file_id')
+
+        return "/dashboard/learning-material/view?file_id=%s" % learning_material_id
+    
 
     
     
@@ -153,6 +194,35 @@ class QAForumPageView(LoginRequiredMixin, CreateView):
         registration = Registration.objects.get(user=self.request.user)
         room_name =   f'{self.request.user.id}_{self.request.user.username}'
         course = registration.course
+        notifications = Notification.objects.all()
+        context['notifications_first_4'] = notifications[:4]
+        context['notifications'] = notifications
+        context['questries'] = Query.objects.filter(course=course)
+        context['room_name'] = room_name
+        # Assuming you have an instance of the Query model called `query`
+        # Add more data to the context if needed
+        return context
+    
+    def form_valid(self, form):
+        # Set the user for the query to the current user
+        registration = Registration.objects.get(user=self.request.user)
+        form.instance.user = self.request.user
+        form.instance.course=registration.course
+        return super().form_valid(form)
+class LearningMaterialPageView(LoginRequiredMixin, CreateView):
+    template_name = 'pages/learning-material/index.html'
+    form_class = LearningMaterialForm
+    success_url = '/dashboard/forum'
+    login_url = '/auth/login/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Learning Material'
+        # context['answer_form'] = AnswerForm()
+        registration = Registration.objects.get(user=self.request.user)
+        room_name =   f'{self.request.user.id}_{self.request.user.username}'
+        course = registration.course
+        context['course'] = course
         notifications = Notification.objects.all()
         context['notifications_first_4'] = notifications[:4]
         context['notifications'] = notifications

@@ -1,0 +1,221 @@
+{% extends 'global/dashboard-base.html' %}
+{% block title %}{{title}}{% endblock title %}
+{% block content %}
+<style>
+  svg {
+    width: 2em;
+    transform-origin: center;
+    animation: rotate4 2s linear infinite;
+  }
+
+circle {
+fill: none;
+stroke: hsl(0, 0%, 100%);
+stroke-width: 2;
+stroke-dasharray: 1, 200;
+stroke-dashoffset: 0;
+stroke-linecap: round;
+animation: dash4 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate4 {
+      100% {
+        transform: rotate(360deg);
+      }
+      }
+
+      @keyframes dash4 {
+      0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+      }
+
+      50% {
+        stroke-dasharray: 90, 200;
+        stroke-dashoffset: -35px;
+      }
+
+      100% {
+        stroke-dashoffset: -125px;
+      }
+    }
+
+</style>
+{% include 'essentials/sidebar.html' %}
+{% include 'global/dashboard-header.html' %}
+<main id="main">
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+
+        <h1 class="fw-light" _msttexthash="205153" _msthash="14" style="direction: ltr;">{{course.name}}</h1>
+        <p class="lead text-body-secondary" _msttexthash="12736789" _msthash="15" style="direction: ltr;">{{course.description}}</p>
+        <p>
+          <div class="mb-3">
+          <form class="search-form  d-flex align-items-center" method="POST" action="#">
+            <input class="form-control" type="text" name="query" placeholder="Search" title="Enter search keyword">
+            <button class="btn btn-primary" type="submit" title="Search"><i class="bi bi-search"></i></button>
+            
+          </form>
+        </div>
+        </p>
+        
+      </div>
+    </div>
+  </section>
+  <div class="album py-5 bg-body-tertiary">
+    <div class="container">
+      <div id="modules" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for module in course.course_modules.all %}
+        <div id="module_card_{{module.id}}" class="col">
+          <div  class="card">
+            <h5 class="card-header">{{ module.name }}</h5>
+            <div class="card-body">
+              <h5 class="card-title">{{ module.code }}</h5>
+              <p class="card-text">{{ module.description }}</p>
+              <a href="#" id="browsebtn_{{ module.id }}" class="btn btn-primary browse-link" data-course-url="{{ module.resource_url }}"><i class="bi bi-door-open-fill"></i>   
+                Browse</a> 
+            </div>
+          </div>
+        </div>
+        <!-- Learning Materals -->
+        <div style="display: none;width: 100%;" id="resource_card_{{module.id}}">
+          
+            <h5 class="">This Module has {% if module.module_learning_materials %} {{ module.module_learning_materials.count }} Files {% else %} No file{% endif %} </h5>
+            <div class="card-body">
+              <div class="card">
+                <h5 class="card-header">Documents</h5>
+                <div class="card-body">
+                  <h5 class="card-title">{{module.name}}</h5>
+                  <script>
+                    // When document is ready convert to datatable $(document).ready(function () { $('#example').DataTable(); });
+                    $(document).ready(
+                      function () { 
+                        $('#datatable_{{module.id}}').DataTable()
+                        $('#datatable_{{module.id}}_filter')
+                      }
+                      )
+
+                    </script>
+                  <table id="datatable_{{module.id}}" class="table datatable datatable-table">
+                    <thead>
+                        <tr>
+                            <th data-sortable="true"><a href="#" class="datatable-sorter">Name</th>
+                            <th data-sortable="true"><a href="#" class="datatable-sorter">Owner</th>
+                            <th data-sortable="true"><a href="#" class="datatable-sorter">Access Type</th>
+                            <th data-sortable="true"><a href="#" class="datatable-sorter">File Type</th>
+                            <th data-sortable="true"><a href="#" class="datatable-sorter">Time Stamp</th>
+                            <th data-sortable="true"><a href="#" class="datatable-sorter"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for file  in module.module_learning_materials.all %}
+                      <tr>
+              
+                            <td>{{ file.name }}</td>
+                            <td>{{ file.user.get_full_name }}</td>
+                            <td>
+                              {% if  file.is_public %} <i class="bi bi-eye-fill"></i> Public {% else %} <i class="bi bi-eye-slash-fill"></i> Private{% endif %}
+                              </td>
+                            <td>{{ file.file_type }}</td>
+
+                            <td>{{ file.date_uploaded }}</td>
+
+                            <td style="display:flex;justify-content: space-around;">
+                              {% if file.user == request.user %}
+                              <a class="btn btn-sm btn-primary" href="{% url 'learning-material-view' %}?file_id={{file.id}}" role="button"><i class="bi bi-eye-fill"></i></a>
+                              {% endif %}
+                              <a onclick="downloadFile('{{file.file.url}}', '{{file.name}}')" class="btn btn-sm btn-success" role="button"><i class="bi bi-arrow-down"></i></a>
+                              <a class="btn btn-sm btn-danger" role="button"><i class="bi bi-trash-fill"></i></a>
+                              <script>
+                                function downloadFile(fileUrl, name) {
+                                    // Create a hidden anchor element
+                                    console.log(fileUrl, name);
+                                    var link = document.createElement('a');
+                                    link.href = fileUrl;
+                                    // Set the download attribute to force a download
+                                    link.download = name;  // You can set the desired filename here
+                                    // Append the anchor to the body
+                                    document.body.appendChild(link);
+                                
+                                    // Trigger a click event to start the download
+                                    link.click();
+                                
+                                    // Remove the anchor from the body
+                                    document.body.removeChild(link);
+                                }
+                                </script>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+        
+                </div>
+              </div>
+            </div>
+        
+        </div>
+
+        {% endfor %}        
+      </div>
+    </div>
+  </div>
+</main>
+<h3 id="load-data"></h3>
+{% include "essentials/dashboard-footer.html" %}
+<script>
+  $(document).ready(function() {
+    $('[id^="resource_card_"]').hide();
+
+    $('.browse-link').click(function(e) {
+      e.preventDefault();  // Prevent the default link behavior
+      // Get the course resource URL from the data attribute
+      var courseUrl = $(this).data('course-url');
+      
+      // Get the unique identifier from the clicked button's id
+      var buttonId = $(this).attr('id');
+      var moduleId = buttonId.split('_')[1]
+
+      console.log(moduleId)
+
+  
+  
+      // Update the corresponding loading indicator
+      $("#" + buttonId).html(`<svg viewBox="25 25 50 50">
+        <circle r="20" cy="50" cx="50"></circle>
+      </svg> Loading`);
+  
+      // Make an AJAX request to load the course resource
+
+      setTimeout(()=>{
+        
+        $.ajax({
+        type: 'GET',
+        url: courseUrl,
+        success: function(data) {
+          // Update the content or handle the response as needed
+          $("#" + buttonId).html("Data loaded successfully");
+          $('[id^="module_card_"]').hide();
+          // Show and target div_3
+
+
+          $('#resource_card_' + moduleId).show();
+          document.getElementById('#resource_card_' + moduleId).style.display = "block";
+        },
+        error: function(xhr, status, error) {
+          // Handle errors
+          console.error('Error loading course resource:', error);
+          $("#" + buttonId).html("Error loading course resource: " + error);
+        }
+      });
+
+      }, 3000)
+
+    });
+  });
+  </script>
+  
+  
+{% endblock content %}

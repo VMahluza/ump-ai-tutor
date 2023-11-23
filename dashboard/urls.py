@@ -1,4 +1,4 @@
-from .views import HomeDashboardPageView, RegistrationSupportingDocsPageView, resolveTicket,LoggedTicketListView, NotificationPageView, change_password, ActiveUsersboardPageView ,UserProfilePageView, QAForumPageView, TutorDashboardPageView, generate_auth_key, up_vote_query, down_vote_query, add_answer_to_query
+from .views import HomeDashboardPageView, LearningMaterialViewPageView, LearningMaterialPageView, RegistrationSupportingDocsPageView, resolveTicket,LoggedTicketListView, NotificationPageView, change_password, ActiveUsersboardPageView ,UserProfilePageView, QAForumPageView, TutorDashboardPageView, generate_auth_key, up_vote_query, down_vote_query, add_answer_to_query
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 
@@ -7,6 +7,8 @@ urlpatterns = [
     path('', HomeDashboardPageView.as_view(), name='dashboard'),
     path('forum', QAForumPageView.as_view(), name='forum'),
     path('supporting-document', RegistrationSupportingDocsPageView.as_view(), name='supporting-document'),
+    path('learning-material', LearningMaterialPageView .as_view(), name='learning-material'),
+    path('learning-material/view', LearningMaterialViewPageView .as_view(), name='learning-material-view'),
     path('notifications', NotificationPageView.as_view(), name='notifications'),
     path('forum/query/up', up_vote_query, name='upvote-query'),
     path('forum/query/down', down_vote_query, name='downvote-query'),
