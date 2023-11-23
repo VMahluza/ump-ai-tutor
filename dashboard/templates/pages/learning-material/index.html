@@ -84,9 +84,10 @@ animation: dash4 1.5s ease-in-out infinite;
             <h5 class="">This Module has {% if module.module_learning_materials %} {{ module.module_learning_materials.count }} Files {% else %} No file{% endif %} </h5>
             <div class="card-body">
               <div class="card">
+                  <h5 class="card-header">{{module.name}}</h5>
+                  
                 <h5 class="card-header">Documents</h5>
                 <div class="card-body">
-                  <h5 class="card-title">{{module.name}}</h5>
                   <script>
                     // When document is ready convert to datatable $(document).ready(function () { $('#example').DataTable(); });
                     $(document).ready(
@@ -200,7 +201,6 @@ animation: dash4 1.5s ease-in-out infinite;
           $('[id^="module_card_"]').hide();
           // Show and target div_3
 
-
           $('#resource_card_' + moduleId).show();
           document.getElementById('#resource_card_' + moduleId).style.display = "block";
         },
@@ -211,7 +211,7 @@ animation: dash4 1.5s ease-in-out infinite;
         }
       });
 
-      }, 3000)
+      }, 1000)
 
     });
   });
